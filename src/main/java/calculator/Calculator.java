@@ -34,11 +34,11 @@ public class Calculator {
 
         if(operator.equals("+")) {
             return curValue + calcValue;
-        } else if(operator.equals("-")) {
+        } if(operator.equals("-")) {
             return curValue - calcValue;
-        } else if(operator.equals("*")) {
+        } if(operator.equals("*")) {
             return curValue * calcValue;
-        } else if(operator.equals("/")) {
+        } if(operator.equals("/")) {
             return curValue / calcValue;
         }
 
