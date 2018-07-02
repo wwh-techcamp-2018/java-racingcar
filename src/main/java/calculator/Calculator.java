@@ -1,24 +1,38 @@
 package calculator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Calculator {
-    private StringParser stringParser = new StringParser();
+    StringParser stringParser = new StringParser();
+    Map<String, CalculateStrategy> operateMap = new HashMap();
 
-    public int plus(int i, int j) {
-        return i + j;
+    public Calculator (String inputText) {
+        operateMap.put("+", (a, b) -> a+b);
+        operateMap.put("-", (a, b) -> a-b);
+        operateMap.put("*", (a, b) -> a*b);
+        operateMap.put("/", (a, b) -> a/b);
+        stringParser.setInput(inputText);
+    }
+    public int getCalculate(String operator, int a, int b) {
+        return operateMap.get(operator).calculate(a, b);
     }
 
-    public int minus(int i, int j) {
-        return i - j;
-    }
+    public int continuousCalculation() {
+        int a, b;
+        String operator;
+        a = stringParser.nextNum();
 
-    public int multiply(int i, int j) {
-        return i * j;
-    }
+        int operatorCount = stringParser.getOperatorCount();
 
-    public int divide(int i, int j) {
-        return i / j;
-    }
+        for (int i = 0; i < operatorCount; i++) {
+            operator = stringParser.nextOperator();
+            b = stringParser.nextNum();
 
-    public int
+            a = getCalculate(operator, a, b);
+        }
+
+        return a;
+    }
 
 }

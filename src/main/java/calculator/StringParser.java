@@ -1,40 +1,46 @@
 package calculator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class StringParser {
-    private final List<String> operator = Arrays.asList("+", "-", "*", "/");
-    public String[] getInput(String input) {
+    private final List<String> operators = Arrays.asList("+", "-", "*", "/");
+
+    private List<Integer> numbers = new ArrayList<>();
+    private List<String> operatorList = new ArrayList<>();
+    private int numCount = 0;
+    private int opCount = 0;
+
+    public void setInput(String input) {
         if (input.equals("") || input == null) {
             throw new IllegalArgumentException();
         }
-        return input.split(" ");
-    }
-    public int calculate(String[] strings) {
-        String currentOperator = null;
-        for(String str : strings) {
-            if(operator.contains(str)) {
-                currentOperator = str;
-            }
-            int num = Integer.parseInt(str);
-            if(currentOperator != null) {
 
-            }
+        String[] strings = input.split(" ");
+        for(int i=0; i<strings.length; i++) {
+            parseToken(strings[i]);
         }
     }
-    public int getCalcaulte(String operator, int a, int b) {
-        Calculator calculator = new Calculator();
-        if(operator.equals("+")) {
-            return calculator.plus(a, b);
-        }
-        if(operator.equals("-")) {
-            return calculator.minus(a, b);
-        }
-        if(operator.equals("*")) {
-            return calculator.multiply(a, b);
-        }
-        return calculator.divide(a, b);
 
+    public void parseToken(String token) {
+        if(operators.contains(token)) {
+            operatorList.add(token);
+            return;
+        }
+        numbers.add(Integer.parseInt(token));
     }
+
+    public int nextNum() {
+        return numbers.get(numCount++);
+    }
+
+    public int getOperatorCount() {
+        return operatorList.size();
+    }
+
+    public String nextOperator() {
+        return operatorList.get(opCount++);
+    }
+
 }
