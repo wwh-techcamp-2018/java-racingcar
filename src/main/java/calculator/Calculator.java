@@ -8,54 +8,61 @@ public class Calculator {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String text = sc.nextLine();
+
+        System.out.println(new Calculator().calculate(text));
     }
 
-    int calculate(String text) {
-        String[] values = text.split(" ");
-        result += Integer.parseInt(values[0]);
+    public int calculate(String text) {
+        String[] values = splitText(text);
+        result += toInt(values[0]);
 
         for (int i = 1; i < values.length; i += 2) {
-            parse(values[i], values[i + 1]);
+            calculate(values[i], toInt(values[i + 1]));
         }
 
         return result;
     }
 
-    private void parse(String operator, String numberStr) {
+    private String[] splitText(String text) {
+        if (text == null || "".equals(text)) {
+            throw new IllegalArgumentException();
+        }
+
+        String[] result = text.split(" ");
+
+        if (result.length % 2 == 0) {
+            throw new IllegalArgumentException();
+        }
+
+        return result;
+    }
+
+    private int toInt(String numberStr) {
+        try {
+            return Integer.parseInt(numberStr);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void calculate(String operator, int number) {
         if ("+".equals(operator)) {
-            add(numberStr);
+            result += number;
             return;
         }
         if ("-".equals(operator)) {
-            minus(numberStr);
+            result -= number;
             return;
         }
         if ("*".equals(operator)) {
-            multiply(numberStr);
+            result *= number;
             return;
         }
         if ("/".equals(operator)) {
-            divide(numberStr);
+            result /= number;
             return;
         }
 
         throw new IllegalArgumentException();
-    }
-
-
-    private void add(String numberStr) {
-        result += Integer.parseInt(numberStr);
-    }
-
-    private void minus(String numberStr) {
-        result -= Integer.parseInt(numberStr);
-    }
-
-    private void multiply(String numberStr) {
-        result *= Integer.parseInt(numberStr);
-    }
-
-    private void divide(String numberStr) {
-        result /= Integer.parseInt(numberStr);
     }
 }
