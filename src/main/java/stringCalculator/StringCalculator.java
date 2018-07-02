@@ -2,58 +2,45 @@ package stringCalculator;
 
 import calculator.Calculator;
 
-import java.util.Stack;
-
 public class StringCalculator {
-    int calculate(String s)
+
+    public int calculate(String input) throws IllegalArgumentException
     {
+        String[] tokens = parse(input);
 
-        String[] tokens = parse(s);
-
-        Stack<Integer> operands = new Stack<>();
-        Stack<String> operators = new Stack<>();
-
-        //@todo
-        for(int i = 0; i < tokens.length; ++i)
+        int result = parseInt(tokens[0]);
+        for(int i = 1; i < tokens.length-1; ++i)
         {
-            if ((i % 2) == 0)
-                operands.push(Integer.parseInt(tokens[i]));
-            else
-                operators.push(tokens[i]);
+            String operator = tokens[i];
+            int operand = parseInt(tokens[i+1]);
+
+            result = operate(operator, result, operand);
         }
 
-        while(!operators.empty())
-        {
-            String op = operators.pop();
-
-            Integer a = operands.pop();
-            Integer b = operands.pop();
-
-            Integer result = calculate(op, a, b);
-
-            operands.push(result);
-        }
-
-        return operands.pop(); // Integer -> int
+        return result;
     }
 
-    boolean isValid(String input)
+    private int parseInt(String input)
     {
-        if(null == input) return false;
-        //@todo
+        return Integer.parseInt(input);
     }
 
-    String[] parse(String s)
+    private String[] parse(String input)
     {
-        String[] tokens = s.split(" ");
+        if (null == input) throw new IllegalArgumentException();
+        if (input.isEmpty()) throw new IllegalArgumentException();
+
+        String[] tokens = input.split(" ");
         return tokens;
     }
 
-    Integer calculate(String operator, Integer a, Integer b)
+    private int operate(String operator, int a, int b)
     {
         if(operator.equals("+")) return Calculator.plus(a, b);
         if(operator.equals("-")) return Calculator.minus(a, b);
         if(operator.equals("/")) return Calculator.multiply(a, b);
         if(operator.equals("*")) return Calculator.divide(a, b);
+
+        throw new IllegalArgumentException();
     }
 }
