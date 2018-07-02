@@ -4,6 +4,12 @@ import java.util.Scanner;
 
 public class StringCalculator {
 
+    public static void main(String args[]){
+        Scanner scan = new Scanner(System.in);
+        String text = scan.nextLine();
+        System.out.print(result(text));
+    }
+
 
 
 
@@ -12,7 +18,7 @@ public class StringCalculator {
         int a=Integer.parseInt(rem[0]);
         int b;
         String con;
-        for(int i = 0 ; i<rem.length-2; i++){
+        for(int i = 0 ; i<rem.length-2; i+=2){
             con=rem[i+1];
             b=Integer.parseInt(rem[i+2]);
 
@@ -28,7 +34,8 @@ public class StringCalculator {
             case "+": result=plus(a,b); break;
             case "-": result=minus(a,b); break;
             case "/": result=div(a,b); break;
-            case "*": result=multi(a,b);
+            case "*": result=multi(a,b); break;
+            default: throw new IllegalArgumentException();
         }
 
         return result;
