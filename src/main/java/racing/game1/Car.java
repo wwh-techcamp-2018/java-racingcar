@@ -16,14 +16,14 @@ public class Car {
 
     }
 
-    public String getName() {
-        return name;
-    }
 
     public int getPosition() {
         return this.position;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public static String getState(int position) {
         StringBuilder str = new StringBuilder();
@@ -45,5 +45,12 @@ public class Car {
         return false;
     }
 
+    public String appendCarNameAndState(){
+        StringBuilder str = new StringBuilder();
+        str.append(this.name);
+        str.append(" : ");
+        str.append(Car.getState(this.position));
+        return str.toString();
+    }
 }
 

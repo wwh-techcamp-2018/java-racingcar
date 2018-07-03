@@ -30,13 +30,8 @@ public class RacingGameIO {
     }
 
     public void getState(List<Car> cars) {
-        StringBuilder str = new StringBuilder();
         for (Car car : cars) {
-            str.append(car.getName());
-            str.append(" : ");
-            str.append(Car.getState(car.getPosition()));
-            print(str.toString());
-            str = new StringBuilder();
+                        print(car.appendCarNameAndState());
         }
         print(RacingGame.getWinner(cars));
     }

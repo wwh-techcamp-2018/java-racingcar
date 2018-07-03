@@ -25,7 +25,7 @@ public class RacingGame {
             winner.changeWinnersStateWithWin(car);
         }
 
-        return winner.getWinners().append("가 최종 우승했습니다.").toString();
+        return winner.getWinners().toString();
     }
 
 

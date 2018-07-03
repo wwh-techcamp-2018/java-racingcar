@@ -3,10 +3,11 @@ package racing.game1;
 public class Winner {
     private int highScore = -1;
     private StringBuilder winners = new StringBuilder();
+    private static final String WINNER_MESSAGE = "가 최종 우승했습니다.";
 
 
     public StringBuilder getWinners() {
-        return winners;
+        return winners.append(WINNER_MESSAGE);
     }
 
     public void changeWinnersStateWithWin(Car car) {
