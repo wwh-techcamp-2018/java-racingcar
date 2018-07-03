@@ -10,10 +10,6 @@ public class Car {
         this.name = name;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     public void move(int random) {
         if (random >= LIMIT)
             this.position++;
@@ -28,6 +24,7 @@ public class Car {
         return this.position;
     }
 
+
     public static String getState(int position) {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < position; i++) {
@@ -35,4 +32,18 @@ public class Car {
         }
         return str.toString();
     }
+
+    public boolean isWin(int highScore){
+        if(this.position > highScore)
+            return true;
+        return false;
+    }
+
+    public boolean isDraw(int highScore){
+        if(this.position == highScore)
+            return true;
+        return false;
+    }
+
 }
+

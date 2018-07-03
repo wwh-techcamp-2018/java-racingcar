@@ -31,4 +31,31 @@ public class CarTest {
         assertEquals("---", Car.getState(3));
     }
 
+    @Test
+    public void isWinTrue() {
+        car.move(4);
+        assertEquals(true,car.isWin(0));
+    }
+
+
+    @Test
+    public void isWinFalse() {
+        assertEquals(false,car.isWin(0));
+    }
+
+    @Test
+    public void isDrawFalseWithUpperScore() {
+        car.move(4);
+        assertEquals(false,car.isDraw(0));
+    }
+
+    @Test
+    public void isDrawFalseWithLowerScore() {
+        assertEquals(false,car.isDraw(1));
+    }
+
+    @Test
+    public void isDrawTrue() {
+        assertEquals(true,car.isDraw(0));
+    }
 }
