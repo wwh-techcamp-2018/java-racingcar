@@ -3,8 +3,6 @@ package game;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 public class RacingGameTest {
@@ -18,8 +16,8 @@ public class RacingGameTest {
 
     @Test
     public void initGame() {
-        assertEquals(RacingCar.class, game.getCarList().get(1).getClass());
-        assertEquals(4, game.getCarList().size());
+        assertEquals(RacingCar.class, game.getCars().get(1).getClass());
+        assertEquals(4, game.getCars().size());
     }
 
     @Test
@@ -37,7 +35,14 @@ public class RacingGameTest {
 
     @Test
     public void start() {
-        ArrayList<Integer> result = game.startGame(5);
-        game.printResult(result);
+//        InputView iv = new InputView();
+        ResultView rv = new ResultView();
+
+//        RacingGame game = new RacingGame(iv.getCarNums());
+//        game.startGame(iv.getTimes());
+        RacingGame game = new RacingGame(10);
+        game.startGame(4);
+
+        rv.printResult(game.getCars());
     }
 }
