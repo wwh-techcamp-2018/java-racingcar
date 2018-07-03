@@ -48,9 +48,7 @@ public class RacingGame {
         List winner = new ArrayList<Car>();
         int max = getMaxPosition();
         for (Car car : cars) {
-            if (car.isMaxPosition(max)) {
-                winner.add(new Car(car.getPosition(), car.getName()));
-            }
+            if (car.isMaxPosition(max)) winner.add(car);
         }
         return winner;
     }
