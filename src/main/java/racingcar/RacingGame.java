@@ -1,53 +1,29 @@
 package racingcar;
 
-import java.sql.SQLOutput;
-import java.util.Random;
+import util.IntegerUtil;
+import util.StringUtil;
+
 import java.util.Scanner;
 
 public class RacingGame {
-    private int[] carPositions;
+    private Car[] cars;
     private int time;
 
     public RacingGame(int carNum, int time) {
-        carPositions = new int[carNum];
+        cars = new Car[carNum];
         this.time = time;
-    }
-
-    public int[] getCarPositions() {
-        return carPositions;
-    }
-
-    public int[] move(int randomNo, int index) {
-        //forward when more than 4
-        if (randomNo >= 4) {
-            carPositions[index]++;
-        }
-        return carPositions;
     }
 
     public void moveAll() {
         int randomNum = 0;
-        for (int j = 0; j < carPositions.length; j++) {
-            randomNum = getRandomNo();
-            move(randomNum, j);
+        for (int i = 0; i < cars.length; i++) {
+            randomNum = IntegerUtil.getRandomNo();
+            cars[i].move(randomNum);
         }
-    }
-
-    public int getRandomNo() {
-        Random r = new Random();
-        return r.nextInt(10);
-    }
-
-    public String repeat(int position) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < position ; i++) {
-            sb.append("-");
-        }
-        return sb.toString();
     }
 
     public void printCarResult(int index){
-        System.out.println(repeat(carPositions[index]));
+        System.out.println(StringUtil.repeatDash(cars[index].getPosition()));
     }
 
     public static void main(String[] args) {
@@ -66,6 +42,5 @@ public class RacingGame {
         for (int i = 0; i < carNum ; i++) {
             racingGame.printCarResult(i);
         }
-
     }
 }
