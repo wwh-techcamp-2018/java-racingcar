@@ -20,4 +20,12 @@ public class Car {
     public int getPosition() {
         return position;
     }
+
+    public boolean isOnPosition(Car car) {
+        return this.position == car.position;
+    }
+
+    public Car getWinner(Car car) {
+        return this.position > car.position ? this : car;
+    }
 }

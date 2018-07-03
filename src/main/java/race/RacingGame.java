@@ -1,29 +1,24 @@
 package race;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RacingGame {
     private static final int LIMIT = 4;
 
-    private int time;
     private List<Car> cars;
-    private int maxPosition = 0;
 
-    public RacingGame(String[] carNames, int time) {
-        if (carNames.length <= 0 || time <= 0) {
+    public RacingGame(String[] carNames) {
+        if (carNames.length <= 0) {
             throw new IllegalArgumentException();
         }
 
         cars = Arrays.stream(carNames)
                 .map(Car::new)
                 .collect(Collectors.toList());
-        this.time = time;
     }
 
-    public void play() {
+    public void play(int time) {
         for (int i = 0; i < time; i++) {
             run();
         }
@@ -32,7 +27,6 @@ public class RacingGame {
     private void run() {
         for (int i = 0; i < cars.size(); i++) {
             move(i);
-            this.maxPosition = Math.max(this.maxPosition, cars.get(i).getPosition());
         }
     }
 
@@ -48,10 +42,24 @@ public class RacingGame {
         return cars;
     }
 
-    public List<Car> chooseWinner() {
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public static List<Car> chooseWinners(List<Car> cars) {
+        Car winner = chooseWinner(cars);
+
         return cars.stream()
-                .filter((c) -> c.getPosition() == maxPosition)
+                .filter((c) -> c.isOnPosition(winner))
                 .collect(Collectors.toList());
+    }
+
+    static Car chooseWinner(List<Car> cars) {
+        Car winner = cars.get(0);
+        for (Car car : cars) {
+            winner = winner.getWinner(car);
+        }
+        return winner;
     }
 
     public static int getRandomNumber() {
@@ -63,11 +71,10 @@ public class RacingGame {
         String[] carNames = consoleView.inputCarNames();
         int time = consoleView.inputTime();
 
-        RacingGame racingGame = new RacingGame(carNames, time);
+        RacingGame racingGame = new RacingGame(carNames);
 
-        racingGame.play();
+        racingGame.play(time);
 
-        consoleView.showResult(racingGame.cars);
-        consoleView.showWinners(racingGame.chooseWinner());
+        consoleView.showResult(racingGame);
     }
 }

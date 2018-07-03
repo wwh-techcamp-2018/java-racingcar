@@ -41,15 +41,13 @@ public class ConsoleView {
         return sb.toString();
     }
 
-    public void showResult(List<Car> cars) {
+    public void showResult(RacingGame racingGame) {
         System.out.println("실행 결과\n");
-        for (Car car : cars) {
+        for (Car car : racingGame.getCars()) {
             System.out.println(car.getName() + " : " + generateCarTiles(car.getPosition()));
         }
-    }
 
-    public void showWinners(List<Car> winners) {
-        System.out.println(gererateWinners(winners));
+        System.out.println(gererateWinners(RacingGame.chooseWinners(racingGame.getCars())));
     }
 
     String gererateWinners(List<Car> winners) {
