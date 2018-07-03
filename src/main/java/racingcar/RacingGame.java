@@ -1,5 +1,7 @@
 package racingcar;
 
+import utility.StringUtility;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,12 +10,8 @@ public class RacingGame {
 
     private List<Car> cars;
 
-    public RacingGame() {
+    public RacingGame(int num) {
         cars = new ArrayList<>();
-    }
-
-    public void settingCars(int num) {
-        cars.clear();
         for (int i = 0; i < num; i++) {
             cars.add(new Car());
         }
@@ -38,15 +36,7 @@ public class RacingGame {
 
     public void print() {
         for (Car car : cars) {
-            repeatDash(car.getPosition());
+            StringUtility.repeatDash(car.getPosition());
         }
-    }
-
-    public String repeatDash(int num) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < num; i++) {
-            sb.append("-");
-        }
-        return sb.toString();
     }
 }
