@@ -24,10 +24,29 @@ public class CalculatorTest {
         assertEquals(-1, calc.minus(2, 3));
     }
 
+    @Test
+    public void divide() {
+        assertEquals(2, calc.divide(2, 1));
+    }
+
+    @Test
+    public void multi() {
+        assertEquals(6, calc.multi(2, 3));
+    }
 
     @Test
     public void calcData() {
         int result = calc.calcData("2 + 3 * 4 / 2");
         assertEquals(10, result);
+    }
+
+    @Test (expected = NumberFormatException.class)
+    public void calcBlank() {
+        calc.calcData("");
+    }
+
+    @Test
+    public void calcDivideByZero() {
+        calc.calcData("3 / 0");
     }
 }
