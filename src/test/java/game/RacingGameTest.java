@@ -43,12 +43,11 @@ public class RacingGameTest {
 
     @Test
     public void maxPosition() {
-        List<RacingCar> cars = game.getCars();
-        cars.get(0).moveForward(10);
-        cars.get(1).moveForward(10);
-        cars.get(2).moveForward(10);
-        cars.get(2).moveForward(10);
-        assertEquals(2, game.getMaxPosition(cars));
+        List<RacingCar> cars = new ArrayList<>();
+        cars.add(new RacingCar("pobi", 4));
+        cars.add(new RacingCar("crong", 10));
+        cars.add(new RacingCar("Honux", 4));
+        assertEquals(10, game.getMaxPosition(cars));
     }
 
     @Test

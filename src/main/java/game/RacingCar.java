@@ -18,10 +18,8 @@ public class RacingCar {
         return position;
     }
 
-    int moveForward(int randomNum) {
-        if (randomNum >= FORWARD_NUM) return ++this.position;
-
-        return isWinner();
+    void moveForward(int randomNum) {
+        if (randomNum >= FORWARD_NUM) ++this.position;
     }
 
     String getName() {
