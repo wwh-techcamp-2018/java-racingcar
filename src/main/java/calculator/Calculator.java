@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Calculator {
 
     public static String[] parse(String text) {
-        if (text == null || text == " ") {
+        if (text == null || " ".equals(text)) {
             throw new IllegalArgumentException();
         }
 
@@ -15,7 +15,7 @@ public class Calculator {
     public static int calculate(String[] arr) {
         int result = Integer.parseInt(arr[0]);
 
-        for(int i=1; i < arr.length; i+=2) {
+        for (int i = 1; i < arr.length; i += 2) {
             int temp = Integer.parseInt(arr[i + 1]);
             result = calculate(result, temp, arr[i]);
         }
