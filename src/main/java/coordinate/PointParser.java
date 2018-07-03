@@ -13,10 +13,9 @@ public class PointParser {
 
     static int toInt(String value) {
         int number = Integer.parseInt(value);
-        if (number > 24 ) {
+        if (number > 24) {
             throw new IllegalArgumentException();
         }
         return number;
     }
-
 }
