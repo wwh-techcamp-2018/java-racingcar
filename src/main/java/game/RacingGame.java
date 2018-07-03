@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RacingGame {
+    public static final int RANDOM_BOUND = 10;
+
     private ArrayList<RacingCar> carList = new ArrayList<>();
 
     RacingGame(int num) {
@@ -19,7 +21,7 @@ public class RacingGame {
     }
 
     int getRandomNum() {
-        return new Random().nextInt(10);
+        return new Random().nextInt(RANDOM_BOUND);
     }
 
     void rollDice() {
