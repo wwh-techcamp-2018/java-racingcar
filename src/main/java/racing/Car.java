@@ -5,7 +5,7 @@ public class Car {
     private int distance = 0;
 
     public int move(int num) {
-        if (LIMIT_NUM < num) {
+        if (LIMIT_NUM <= num) {
             return ++this.distance;
         }
         return this.distance;

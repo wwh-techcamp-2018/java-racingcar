@@ -23,9 +23,4 @@ public class RacingGameManagerTest {
         racingGameManager.initGame(3);
         racingGameManager.runGame(5);
     }
-
-    @Test
-    public void createDash() {
-        assertThat(racingGameManager.createDash(4)).isEqualTo("----");
-    }
 }

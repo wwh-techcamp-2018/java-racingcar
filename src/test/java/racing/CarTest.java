@@ -11,6 +11,8 @@ public class CarTest {
     public void move() {
         Car car = new Car();
         assertThat(car.move(5)).isEqualTo(1);
+        assertThat(car.move(4)).isEqualTo(2);
+        assertThat(car.move(3)).isEqualTo(2);
     }
 
     @Test

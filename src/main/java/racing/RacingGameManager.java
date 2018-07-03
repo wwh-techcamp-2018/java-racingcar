@@ -1,5 +1,7 @@
 package racing;
 
+import racing.common.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,21 +38,13 @@ public class RacingGameManager {
         }
     }
 
-    String createDash(int num) {
-        StringBuilder st = new StringBuilder();
-        for (int i = 0; i < num; i++) {
-            st.append("-");
-        }
-        return st.toString();
-    }
-
     private void print(String dash) {
         System.out.println(dash);
     }
 
     private void printResult() {
         for (int i = 0; i < cars.size(); i++) {
-            print(createDash(cars.get(i).getDistance()));
+            print(StringUtils.createDash(cars.get(i).getDistance()));
         }
     }
 
