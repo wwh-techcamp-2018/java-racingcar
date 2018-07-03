@@ -25,4 +25,8 @@ public class Car {
         }
         return position;
     }
+
+    public boolean isEqualPosition(int max) {
+        return this.position == max;
+    }
 }

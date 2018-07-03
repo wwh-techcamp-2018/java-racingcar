@@ -40,7 +40,7 @@ public class RacingGame {
 
     }
     public static List<Car> getWinners(List<Car> cars, int max) {
-        return cars.stream().filter((car) -> car.getPosition() == max).collect(Collectors.toList());
+        return cars.stream().filter((car) -> car.isEqualPosition(max)).collect(Collectors.toList());
     }
 
     public static String getWinnerText(List<Car> winners) {
