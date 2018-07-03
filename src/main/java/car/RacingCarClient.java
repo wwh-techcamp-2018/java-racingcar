@@ -1,28 +1,28 @@
 package car;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RacingCarClient {
-    private Car[] cars;
+    private List<Car> cars;
+
+    public RacingCarClient(int numOfCars) {
+        cars = new ArrayList<Car>(numOfCars);
+        for (int i = 0; i < numOfCars; i++) {
+            cars.add(new Car());
+        }
+    }
 
     public static void main(String[] args) {
         InputUI inputUI = new InputUI();
         int numOfCars = inputUI.getNumOfCars();
         int numOfGames = inputUI.getNumOfGames();
 
-        RacingCarClient client = new RacingCarClient();
-        client.initialize(numOfCars);
+        RacingCarClient client = new RacingCarClient(numOfCars);
         client.run(numOfGames);
 
-        ResultUI resultUI = new ResultUI();
-        resultUI.printGame(client.getPositions());
-    }
-
-    public void initialize(int numOfCars) {
-        cars = new Car[numOfCars];
-        for (int i = 0; i < numOfCars; i++) {
-            cars[i] = new Car();
-        }
+        ResultUI.printGame(client.getPositions());
     }
 
     public void run(int numOfGames) {
@@ -32,8 +32,8 @@ public class RacingCarClient {
     }
 
     void moveCars() {
-        for (int i = 0; i < cars.length; i++) {
-            cars[i].move(getRandomNum());
+        for (Car car : cars) {
+            car.move(getRandomNum());
         }
     }
 
@@ -41,10 +41,10 @@ public class RacingCarClient {
         return new Random().nextInt(10);
     }
 
-    int[] getPositions() {
-        int[] result = new int[cars.length];
-        for (int i = 0; i < cars.length; i++) {
-            result[i] = cars[i].getPosition();
+    List<Integer> getPositions() {
+        List<Integer> result = new ArrayList<Integer>(cars.size());
+        for (Car car : cars) {
+            result.add(car.getPosition());
         }
         return result;
     }

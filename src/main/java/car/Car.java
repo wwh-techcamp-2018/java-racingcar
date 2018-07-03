@@ -3,7 +3,7 @@ package car;
 import java.util.Random;
 
 public class Car {
-
+    static final int DETERMINANT = 4;
     private int position;
 
     public Car() {
@@ -11,7 +11,7 @@ public class Car {
     }
 
     int move(int nextMove) {
-        if (nextMove >= 4) {
+        if (nextMove >= DETERMINANT) {
             return ++position;
         }
         return position;

@@ -1,21 +1,24 @@
 package car;
 
-public class ResultUI {
+import java.util.List;
 
-    public void printGame(int[] positions) {
+public class ResultUI {
+    static final String DELIMITER = "\n";
+    static final String MOVE_EXPRESSION = "-";
+    public static void printGame(List<Integer> positions) {
         StringBuffer sb = new StringBuffer();
         for (int position : positions) {
             sb.append(convertToPrint(position));
-            sb.append("\n");
+            sb.append(DELIMITER);
         }
         System.out.print(sb.toString());
     }
 
 
-    String convertToPrint(int position) {
+    static String convertToPrint(int position) {
         StringBuffer output = new StringBuffer();
         for (int i = 0; i < position; i++) {
-            output.append("-");
+            output.append(MOVE_EXPRESSION);
         }
         return output.toString();
     }
