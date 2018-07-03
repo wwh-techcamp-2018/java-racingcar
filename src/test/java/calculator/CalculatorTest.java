@@ -6,9 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
-
     private Calculator cal;
-
 
     //executed again for each tests
     //for initialization and independence
@@ -21,25 +19,25 @@ public class CalculatorTest {
     //no dependency guaranteed
     @Test
     public void plusTest() {
-        int result = cal.plus(2,3);
+        int result = cal.plus(2, 3);
         assertEquals(5, result);
     }
 
     @Test
     public void minusTest() {
-        int result = cal.minus(2,3);
+        int result = cal.minus(2, 3);
         assertEquals(-1, result);
     }
 
     @Test
     public void multiplyTest() {
-        int result = cal.multiply(2,3);
+        int result = cal.multiply(2, 3);
         assertEquals(6, result);
     }
 
     @Test
     public void divideTest() {
-        int result = cal.divide(4,2);
+        int result = cal.divide(4, 2);
         assertEquals(2, result);
     }
 
