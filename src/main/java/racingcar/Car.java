@@ -15,7 +15,7 @@ public class Car {
     public int move(int randomNo) {
         //forward when more than 4
         if (randomNo >= FORWARD_NUM) {
-            return position++;
+            return ++position;
         }
         return position;
     }
