@@ -1,21 +1,22 @@
 package game;
 
+import common.Utils;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class RacingGame {
     private int tryTime;
-    private ArrayList<Car> carArrayList;
+    private List<Car> cars;
 
-    public RacingGame() {
-        carArrayList = new ArrayList<>();
-    }
 
-    public void initGame(int tryTime, int carNumber) {
+    public RacingGame(int tryTime, int carNumber) {
+        cars = new ArrayList<>();
         this.tryTime = tryTime;
         for (int i = 0; i < carNumber; i++) {
-            carArrayList.add(new Car());
+            cars.add(new Car());
         }
     }
 
@@ -29,7 +30,7 @@ public class RacingGame {
     }
 
     void moveCar() {
-        for (Car car : carArrayList) {
+        for (Car car : cars) {
             car.movePosition(getRandomValue());
         }
     }
@@ -40,21 +41,12 @@ public class RacingGame {
         }
     }
 
-    public String dashString(int position) {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < position; i++) {
-            stringBuffer.append("-");
-        }
-        return stringBuffer.toString();
-    }
-
     public void printGameResult() {
-        for (Car car : carArrayList)
-            System.out.println(dashString(car.getPosition()));
+        for (Car car : cars)
+            System.out.println(Utils.dashString(car.getPosition()));
     }
 
     public static void main(String[] args) {
-        RacingGame racingGame = new RacingGame();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("자동차 대 수는 얼마인가요?");
@@ -62,7 +54,7 @@ public class RacingGame {
         System.out.println("시도할 횟수는 몇 회 인가요?");
         int tryTime = scanner.nextInt();
 
-        racingGame.initGame(tryTime, carNumber);
+        RacingGame racingGame = new RacingGame(tryTime, carNumber);
         racingGame.moveCars();
 
         System.out.println("실행 결과 : ");

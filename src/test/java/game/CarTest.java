@@ -14,8 +14,14 @@ public class CarTest {
     }
 
     @Test
-    public void moveTest() {
+    public void movedSucceedTest() {
         car.movePosition(5);
+        assertEquals(0,car.getPosition());
+    }
+
+    @Test
+    public void movedFailedTest() {
+        car.movePosition(2);
         assertEquals(0,car.getPosition());
     }
 }
