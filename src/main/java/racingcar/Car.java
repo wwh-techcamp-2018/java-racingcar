@@ -2,19 +2,23 @@ package racingcar;
 
 public class Car {
     private int position;
+    private static final int LIMIT_NUM = 4;
 
     public Car() {
     }
 
-    public Car(int position) {
+    Car(int position) {
         this.position = position;
     }
 
-    public int getPosition() {
+    int getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    int move(int randomValue) {
+        if (randomValue > LIMIT_NUM)
+            this.position++;
+        return this.position;
     }
+
 }
