@@ -46,4 +46,9 @@ public class RacingGameTest {
     public void getWinnerTest() {
         assertEquals("car2,car3", racingGame.getWinnerText(racingGame.getWinners(racingGame.getMaxDist())));
     }
+
+    @Test
+    public void getMaxDistTest() {
+        assertEquals(5, racingGame.getMaxDist());
+    }
 }
