@@ -2,18 +2,20 @@ package racingcar;
 
 import utility.StringUtility;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class RacingGame {
 
     private List<Car> cars;
+    private Map<Integer, List<String>> rankMap;
 
-    public RacingGame(int num) {
+    public RacingGame(String input) {
         cars = new ArrayList<>();
-        for (int i = 0; i < num; i++) {
-            cars.add(new Car());
+        rankMap = new HashMap<>();
+
+        String[] names = StringUtility.splitWithComma(input);
+        for (int i = 0; i < names.length; i++) {
+            cars.add(new Car(names[i]));
         }
     }
 
@@ -34,9 +36,38 @@ public class RacingGame {
         return random.nextInt(10);
     }
 
-    public void print() {
+    public String getRacingCar() {
+        StringBuffer sb = new StringBuffer();
         for (Car car : cars) {
-            StringUtility.repeatDash(car.getPosition());
+            sb.append(car.toString());
         }
+        return sb.toString();
     }
+
+    public String getWinners() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(StringUtility.joinWithComma(getWinnerNameList()));
+        sb.append("가 최종우승했습니다.");
+        return sb.toString();
+    }
+
+    public List<String> getWinnerNameList() {
+        int maxPosition = 0;
+        for (Car car : cars) {
+            maxPosition = Math.max(maxPosition, car.getPosition());
+            rank(car);
+        }
+        return rankMap.get(maxPosition);
+    }
+
+    public void rank(Car car) {
+        int position = car.getPosition();
+        List<String> names = rankMap.get(position);
+        if (null == names)
+            names = new ArrayList<>();
+
+        names.add(car.getName());
+        rankMap.put(position, names);
+    }
+
 }

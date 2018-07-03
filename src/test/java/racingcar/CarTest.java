@@ -10,7 +10,7 @@ public class CarTest {
     private Car car;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         car = new Car();
     }
 
