@@ -2,7 +2,12 @@ package racingcar;
 
 public class RacingCar {
     private static final int MOVE_MIN_STANDARD = 4;
+    private String name;
     private int position;
+
+    public RacingCar(String name) {
+        this.name = name;
+    }
 
     public int move(int randomNo) {
         if (randomNo >= MOVE_MIN_STANDARD) {
@@ -21,5 +26,17 @@ public class RacingCar {
 
     public int getPosition() {
         return position;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "RacingCar{" +
+                "name='" + name + '\'' +
+                ", position=" + position +
+                '}';
     }
 }
