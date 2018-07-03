@@ -1,23 +1,23 @@
 package racing;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RacingGame {
     private int time;
-    private Car[] cars;
+    private List<Car> cars = new ArrayList<>();
     private RandomValueGenerator valueGenerator = new RandomValueGenerator();
 
     public RacingGame(int carNumber, int time) {
-        this.cars = new Car[carNumber];
         for (int i = 0; i < carNumber; i++) {
-            cars[i] = new Car();
+            cars.add(new Car());
         }
         this.time = time;
     }
 
     public int[] move() {
         for (int i = 0; i < time; i++) {
-            moveCars(generateRandomValues(cars.length));
+            moveCars(generateRandomValues(cars.size()));
         }
 
         return getCarPositions();
@@ -25,16 +25,17 @@ public class RacingGame {
 
 
     void moveCars(int[] randomValues) {
-        for (int i = 0; i < cars.length; i++) {
-            cars[i].move(randomValues[i]);
+        for (int i = 0; i < cars.size(); i++) {
+            cars.get(i).move(randomValues[i]);
         }
     }
 
     public int[] getCarPositions() {
-        int[] result = new int[cars.length];
-        for (int i = 0; i < cars.length; i++) {
-            result[i] = cars[i].getPosition();
+        int[] result = new int[cars.size()];
+        for (int i = 0; i < cars.size(); i++) {
+            result[i] = cars.get(i).getPosition();
         }
+
         return result;
     }
 
