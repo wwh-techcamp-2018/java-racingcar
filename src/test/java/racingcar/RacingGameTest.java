@@ -30,9 +30,4 @@ public class RacingGameTest {
         assertEquals("--", racingGame.repeat(2));
         assertEquals("---", racingGame.repeat(3));
     }
-
-    @Test
-    public void printTest() {
-
-    }
 }
