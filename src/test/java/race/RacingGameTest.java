@@ -32,11 +32,11 @@ public class RacingGameTest {
 
     @Test
     public void shouldNotBeMoved() {
-        assertThat(newGame.move(0, 3)[0]).isZero();
+        assertThat(newGame.move(0, 3).get(0).getPosition()).isZero();
     }
 
     @Test
     public void shouldBeMoved() {
-        assertThat(newGame.move(1, 4)[1]).isOne();
+        assertThat(newGame.move(1, 4).get(1).getPosition()).isOne();
     }
 }

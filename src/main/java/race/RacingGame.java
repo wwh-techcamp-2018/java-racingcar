@@ -1,18 +1,25 @@
 package race;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RacingGame {
     private int time;
-    private int[] carPositions;
+    private List<Car> cars;
+    private static final int LIMIT = 4;
+    private static final String CAR_TILE = "-";
 
     public RacingGame(int numOfCars, int time) {
         if (numOfCars <= 0 || time <= 0) {
             throw new IllegalArgumentException();
         }
 
-        carPositions = new int[numOfCars];
+        cars = Stream.generate(Car::new)
+                .limit(numOfCars)
+                .collect(Collectors.toList());
         this.time = time;
     }
 
@@ -23,33 +30,33 @@ public class RacingGame {
     }
 
     private void run() {
-        for (int i = 0; i < carPositions.length; i++) {
+        for (int i = 0; i < cars.size(); i++) {
             move(i);
         }
     }
 
-    public int[] move(int index) {
-        return move(index, getRandomNumber());
+    public void move(int index) {
+        move(index, getRandomNumber());
     }
 
-    public int[] move(int index, int randomNumber) {
-        if (randomNumber >= 4) {
-            carPositions[index]++;
+    public List<Car> move(int index, int randomNumber) {
+        if (randomNumber >= LIMIT) {
+            cars.get(index).moveFront();
         }
 
-        return carPositions;
+        return cars;
     }
 
     public void print() {
-        for (int i = 0; i < carPositions.length; i++) {
-            System.out.println(repeat(carPositions[i]));
+        for (Car car : cars) {
+            System.out.println(repeat(car.getPosition()));
         }
     }
 
     static String repeat(int carPosition) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < carPosition; i++) {
-            sb.append("-");
+            sb.append(CAR_TILE);
         }
 
         return sb.toString();
