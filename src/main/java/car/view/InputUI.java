@@ -1,8 +1,11 @@
 package car.view;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class InputUI {
+    static final String DELIMITER = ",";
     Scanner scanner;
 
     public InputUI() {
@@ -13,6 +16,15 @@ public class InputUI {
         System.out.println("자동차 대수는 몇 대 인가요?");
         int num = Integer.parseInt(scanner.nextLine());
         return num;
+    }
+
+    public List<String> getCarNames() {
+        System.out.println("자동차 대수는 몇 대 인가요?");
+        return parseCarNames(scanner.nextLine());
+    }
+
+    List<String> parseCarNames(String input) {
+        return Arrays.asList(input.split(DELIMITER));
     }
 
     public int getNumOfGames() {

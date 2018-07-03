@@ -1,34 +1,16 @@
 package car;
 
 import car.model.Car;
-import car.view.InputUI;
-import car.view.ResultUI;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RacingCarClient {
-    private List<Car> cars;
-
-    public RacingCarClient(int numOfCars) {
-        cars = new ArrayList<Car>(numOfCars);
-        for (int i = 0; i < numOfCars; i++) {
-            cars.add(new Car());
-        }
+public class ClientRunner {
+    List<Car> cars;
+    ClientRunner(List<Car> cars){
+        this.cars = cars;
     }
-
-    public static void main(String[] args) {
-        InputUI inputUI = new InputUI();
-        int numOfCars = inputUI.getNumOfCars();
-        int numOfGames = inputUI.getNumOfGames();
-
-        RacingCarClient client = new RacingCarClient(numOfCars);
-        client.run(numOfGames);
-
-        ResultUI.printGame(client.getPositions());
-    }
-
     public void run(int numOfGames) {
         for (int i = 0; i < numOfGames; i++) {
             moveCars();
