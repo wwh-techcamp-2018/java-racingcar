@@ -3,6 +3,7 @@ package game;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class RacingGameTest {
         RacingCar car = new RacingCar(name);
         assertEquals(name, car.getName());
         car.moveForward(5);
-        assertEquals(car.getPosition(), 1);
+        assertEquals(car.isWinner(), 1);
     }
 
     @Test
@@ -52,15 +53,15 @@ public class RacingGameTest {
 
     @Test
     public void getWinner() {
-        List<RacingCar> cars = game.getCars();
-        cars.get(0).moveForward(10);
-        cars.get(1).moveForward(10);
-        cars.get(2).moveForward(10);
-        cars.get(2).moveForward(10);
+        List<RacingCar> cars = new ArrayList<>();
+        cars.add(new RacingCar("pobi", 4));
+        cars.add(new RacingCar("crong", 10));
+        cars.add(new RacingCar("Honux", 4));
+
 
         Set<String> set = new HashSet<>();
-        set.add(cars.get(2).getName());
-        assertEquals(set, game.getWinners());
+        set.add("crong");
+        assertEquals(set, game.getWinners(cars));
 
     }
 

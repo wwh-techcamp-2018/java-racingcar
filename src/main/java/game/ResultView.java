@@ -4,7 +4,7 @@ public class ResultView {
     void printResult(RacingGame game) {
         for (RacingCar car : game.getCars()) {
             System.out.print(car.getName() + " : ");
-            printDash(car.getPosition());
+            printDash(car.isWinner());
             System.out.println();
         }
 

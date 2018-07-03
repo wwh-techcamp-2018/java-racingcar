@@ -33,13 +33,18 @@ public class RacingGame {
 
 
     public Set<String> getWinners() {
+        return getWinners(this.cars);
+    }
+
+    public static Set<String> getWinners(List<RacingCar> cars) {
+        int maxPosition = getMaxPosition(cars);
         return cars.stream()
-                .filter(car -> car.getPosition() == this.getMaxPosition(cars))
+                .filter(car -> car.isWinner(maxPosition))
                 .map(RacingCar::getName)
                 .collect(Collectors.toSet());
     }
 
-    int getMaxPosition(List<RacingCar> cars) {
-        return Collections.max(cars, Comparator.comparingInt(RacingCar::getPosition)).getPosition();
+    static int getMaxPosition(List<RacingCar> cars) {
+        return Collections.max(cars, Comparator.comparingInt(RacingCar::isWinner)).isWinner();
     }
 }

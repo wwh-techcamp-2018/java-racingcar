@@ -9,17 +9,26 @@ public class RacingCar {
         this.name = name;
     }
 
-    int getPosition() {
+    public RacingCar(String name, int position) {
+        this.name = name;
+        this.position = position;
+    }
+
+    int isWinner() {
         return position;
     }
 
     int moveForward(int randomNum) {
         if (randomNum >= FORWARD_NUM) return ++this.position;
 
-        return getPosition();
+        return isWinner();
     }
 
     String getName() {
         return name;
+    }
+
+    public boolean isWinner(int maxPosition) {
+        return this.position == maxPosition;
     }
 }
