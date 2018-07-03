@@ -5,37 +5,44 @@ import java.util.List;
 import java.util.Random;
 
 public class RacingGame {
-    private static List<RacingCar> cars = new ArrayList<>();
+    private static final int RANDOM_MAX_LIMIT = 10;
+    private List<RacingCar> cars = new ArrayList<>();
 
-    public RacingGame(int number) {
-        for (int i = 0; i < number; i++) {
+    public RacingGame(int carNum) {
+        for (int i = 0; i < carNum; i++) {
             cars.add(new RacingCar());
         }
     }
 
     public static void main(String[] args) {
-        int carNum = ConsoleInputView.getCarNum();       // 입력
+        int carNum = ConsoleInputView.getCarNum();
         int tryCount = ConsoleInputView.getTryCount();
 
-        RacingGame game = new RacingGame(carNum);           // 생성
+        RacingGame racingGame = new RacingGame(carNum);
 
-        for (int i = 0; i < carNum; i++) {               // 이동
-            game.moveCars(cars.get(i), tryCount);
+        for (int i = 0; i < carNum; i++) {
+            racingGame.moveCars(tryCount);
         }
 
-        for (RacingCar car : cars) {               // 출력
-            System.out.println(car.makePositionToString(car.getPosition()));
+        for (RacingCar car : racingGame.cars) {
+            System.out.println(RacingCar.makePositionToString(car.getPosition()));
         }
 
     }
 
-    public void moveCars(RacingCar car, int tryCount) {
+    public void moveCars(int tryCount) {
         for (int i = 0; i < tryCount; i++) {
-            car.move(makeRandomNumber(10));
+            moveCar();
         }
     }
 
-    public int makeRandomNumber(int limit) {
+    public void moveCar() {
+        for (int i = 0; i < cars.size(); i++) {
+            cars.get(i).move(makeRandomNumber(RANDOM_MAX_LIMIT));
+        }
+    }
+
+    public static int makeRandomNumber(int limit) {
         Random random = new Random();
         return random.nextInt(limit);
     }
