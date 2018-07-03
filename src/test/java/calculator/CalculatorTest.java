@@ -11,18 +11,36 @@ public class CalculatorTest {
 
     @Before
     public void setUp() throws Exception {
-
         cal = new Calculator();
     }
 
     @Test
-    public void plus() {
-        assertEquals(5, cal.plus(2, 3));
+    public void operatePlus() {
+        assertEquals(5, cal.operate("+", 2, 3));
     }
 
     @Test
-    public void minus() {
-        int result = cal.minus(2, 3);
-        assertEquals(-1, result);
+    public void operateMinus() {
+        assertEquals(-1, cal.operate("-", 2, 3));
+    }
+
+    @Test
+    public void operateMultiply() {
+        assertEquals(6, cal.operate("*", 2, 3));
+    }
+
+    @Test
+    public void operateDivide() {
+        assertEquals(2, cal.operate("/", 4, 2));
+    }
+
+    @Test (expected = ArithmeticException.class)
+    public void operateDivideByZero() {
+        cal.operate("/", 4, 0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void operateInvalidOperator() {
+        cal.operate("!", 2, 3);
     }
 }
