@@ -28,11 +28,11 @@ public class StringCalculator {
         try {
             return Integer.parseInt(s);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException();
+            throw new NumberFormatException();
         }
     }
 
-    public boolean isNullString(String value) {
+    public boolean isBlank(String value) {
         if (value == null || value.equals("")) {
             throw new IllegalArgumentException();
         }
@@ -40,14 +40,14 @@ public class StringCalculator {
     }
 
     public int calAnswer(String value) {
-        isNullString(value);
+        isBlank(value);
 
-        String[] inputAry = value.split(" ");
-        int currentValue = parseInt(inputAry[0]);
+        String[] input = value.split(" ");
+        int currentValue = parseInt(input[0]);
 
-        for (int i = 1; i < inputAry.length; i += 2) {
-            String operator = inputAry[i];
-            int anotherValue = parseInt(inputAry[i + 1]);
+        for (int i = 1; i < input.length; i += 2) {
+            String operator = input[i];
+            int anotherValue = parseInt(input[i + 1]);
             currentValue = calculate(operator, currentValue, anotherValue);
         }
         return currentValue;

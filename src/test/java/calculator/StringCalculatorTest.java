@@ -15,17 +15,26 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void calculate() {
+    public void calculatePlus() {
         int plusAnswer = sc.calculate("+",1,2);
         assertEquals(plusAnswer, 3);
+    }
+
+    @Test
+    public void calculateMinus() {
         int substractAnswer = sc.calculate("-",1,2);
         assertEquals(substractAnswer, -1);
+    }
+    @Test
+    public void calculateMultiply() {
         int multiplyAnswer = sc.calculate("*",1,2);
         assertEquals(multiplyAnswer, 2);
+    }
+    @Test
+    public void calculateDivide() {
         int divideAnswer = sc.calculate("/",1,1);
         assertEquals(divideAnswer, 1);
     }
-
     @Test
     public void parseInt(){
         int ex = sc.parseInt("5");
@@ -33,8 +42,8 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void isNullString() {
-        boolean ex = sc.isNullString("test");
+    public void isBlank() {
+        boolean ex = sc.isBlank("test");
         assertEquals(ex, true);
     }
 
