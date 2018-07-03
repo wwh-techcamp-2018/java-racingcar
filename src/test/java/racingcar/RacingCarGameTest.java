@@ -11,6 +11,7 @@ public class RacingCarGameTest {
 
     @Before
     public void setUp() throws Exception {
-        game = new RacingCarGame(5);
+        String[] names = {"호눅스", "크롱", "포비"};
+        game = new RacingCarGame(names);
     }
 }

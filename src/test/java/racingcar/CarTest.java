@@ -11,7 +11,7 @@ public class CarTest {
 
     @Before
     public void setUp() throws Exception {
-        car = new Car();
+        car = new Car("포비");
     }
 
     @Test
@@ -28,6 +28,8 @@ public class CarTest {
 
     @Test
     public void repeat() {
-        assertEquals("--", car.repeat(2));
+        car.move(4);
+        car.move(5);
+        assertEquals("포비 : --", Car.repeat(car.getName(), car.getPosition()));
     }
 }
