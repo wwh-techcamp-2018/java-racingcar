@@ -21,7 +21,7 @@ public class RacingView {
     }
 
     public void printWinner(Car car, int maxPosition) {
-        if (car.getPosition() < maxPosition)
+        if (car.isWinner(maxPosition))
             return;
 
         if (isFirstWinnerMessage) {
