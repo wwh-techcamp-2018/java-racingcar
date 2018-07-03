@@ -6,11 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ClientRunner {
-    List<Car> cars;
-    ClientRunner(List<Car> cars){
+public class CarRunner<T extends Car> {
+
+    private static final int RANDOM_BOUND_NUM = 10;
+
+    List<T> cars;
+
+    CarRunner(List<T> cars){
         this.cars = cars;
     }
+
     public void run(int numOfGames) {
         for (int i = 0; i < numOfGames; i++) {
             moveCars();
@@ -24,7 +29,7 @@ public class ClientRunner {
     }
 
     int getRandomNum() {
-        return new Random().nextInt(10);
+        return new Random().nextInt(RANDOM_BOUND_NUM);
     }
 
     List<Integer> getPositions() {

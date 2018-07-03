@@ -1,24 +1,23 @@
 package car;
 
 import car.domain.CarDTO;
-import car.model.Car;
 import car.model.NamedCar;
 import car.view.InputUI;
 import car.view.ResultUI;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class NamedCarClient {
-    List<NamedCar> cars;
+
+    NamedCarRunner<NamedCar> runner;
 
     public NamedCarClient(List<String> carList) {
-        cars = new ArrayList<NamedCar>(carList.size());
+        List<NamedCar> cars = new ArrayList<NamedCar>(carList.size());
         for (String name : carList) {
             cars.add(new NamedCar(name));
         }
+        runner = new NamedCarRunner<NamedCar>(cars);
     }
 
     public static void main(String[] args) {
@@ -35,37 +34,11 @@ public class NamedCarClient {
 
         ResultUI.printByDTO(namedCarClient.convertToCarDTOs());
     }
-
-    List<CarDTO> convertToCarDTOs() {
-        List<CarDTO> carDTOs = new ArrayList<CarDTO>(cars.size());
-        for (NamedCar car : cars) {
-            carDTOs.add(new CarDTO(car.getName(), car.getPosition()));
-        }
-        return carDTOs;
-    }
-
     public void run(int numOfGames) {
-        for (int i = 0; i < numOfGames; i++) {
-            moveCars();
-        }
+       runner.run(numOfGames);
     }
-
-    void moveCars() {
-        for (Car car : cars) {
-            car.move(getRandomNum());
-        }
-    }
-
-    int getRandomNum() {
-        return new Random().nextInt(10);
-    }
-
-    List<Integer> getPositions() {
-        List<Integer> result = new ArrayList<Integer>(cars.size());
-        for (Car car : cars) {
-            result.add(car.getPosition());
-        }
-        return result;
+    List<CarDTO> convertToCarDTOs() {
+        return runner.convertToCarDTOs();
     }
 
 }

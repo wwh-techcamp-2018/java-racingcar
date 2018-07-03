@@ -6,19 +6,18 @@ import car.view.ResultUI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class CarClient {
-    private List<Car> cars;
-    //private ClientRunner runner;
+    private CarRunner<Car> runner;
+
     public CarClient(int numOfCars) {
 
-        cars = new ArrayList<Car>(numOfCars);
+        List<Car> cars = new ArrayList<Car>(numOfCars);
         for (int i = 0; i < numOfCars; i++) {
             cars.add(new Car());
         }
-        //runner = new ClientRunner(cars);
-        //runner.run();
+        runner = new CarRunner<Car>(cars);
+
     }
 
     public static void main(String[] args) {
@@ -31,28 +30,13 @@ public class CarClient {
 
         ResultUI.printByPositions(client.getPositions());
     }
-    public void run(int numOfGames) {
-    for (int i = 0; i < numOfGames; i++) {
-        moveCars();
-    }
-}
 
-    void moveCars() {
-        for (Car car : cars) {
-            car.move(getRandomNum());
-        }
-    }
-
-    int getRandomNum() {
-        return new Random().nextInt(10);
+    public void run(int numOfGames){
+        runner.run(numOfGames);
     }
 
     List<Integer> getPositions() {
-        List<Integer> result = new ArrayList<Integer>(cars.size());
-        for (Car car : cars) {
-            result.add(car.getPosition());
-        }
-        return result;
+        return runner.getPositions();
     }
 
 }
