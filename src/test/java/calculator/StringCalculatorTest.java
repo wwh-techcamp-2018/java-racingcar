@@ -16,27 +16,30 @@ public class StringCalculatorTest {
 
     @Test
     public void calculatePlus() {
-        int plusAnswer = sc.calculate("+",1,2);
+        int plusAnswer = sc.calculate("+", 1, 2);
         assertEquals(plusAnswer, 3);
     }
 
     @Test
     public void calculateMinus() {
-        int substractAnswer = sc.calculate("-",1,2);
+        int substractAnswer = sc.calculate("-", 1, 2);
         assertEquals(substractAnswer, -1);
     }
+
     @Test
     public void calculateMultiply() {
-        int multiplyAnswer = sc.calculate("*",1,2);
+        int multiplyAnswer = sc.calculate("*", 1, 2);
         assertEquals(multiplyAnswer, 2);
     }
+
     @Test
     public void calculateDivide() {
-        int divideAnswer = sc.calculate("/",1,1);
+        int divideAnswer = sc.calculate("/", 1, 1);
         assertEquals(divideAnswer, 1);
     }
+
     @Test
-    public void parseInt(){
+    public void parseInt() {
         int ex = sc.parseInt("5");
         assertEquals(ex, 5);
     }

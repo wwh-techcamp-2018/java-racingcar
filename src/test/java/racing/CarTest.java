@@ -16,14 +16,12 @@ public class CarTest {
 
     @Test
     public void moveSuccess() {
-        car.move(5);
-        assertEquals(true, true);
+        assertEquals(true, car.move(9));
     }
 
     @Test
     public void moveFail() {
-        car.move(2);
-        assertEquals(false, false);
+        assertEquals(false, car.move(0));
     }
 
     @Test

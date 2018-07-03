@@ -1,21 +1,16 @@
 package racing;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class RacingGame {
 
-    public ArrayList<Car> carList;
-    private int carNum;
+    public List<Car> carList;
     private int tryNum;
-
-    public RacingGame() {
-        carList = new ArrayList<>();
-    }
 
     public RacingGame(int carNum, int tryNum) {
         carList = new ArrayList<>();
-        this.carNum = carNum;
         this.tryNum = tryNum;
 
         for (int i = 0; i < carNum; i++) {
@@ -24,40 +19,19 @@ public class RacingGame {
     }
 
     public void startRace() {
-        for (int i = 0; i < carNum; i++) {
-            carList.get(i).race(carNum);
-        }
+        startRace(carList.size());
     }
 
     public void startRace(int num) {
-        for (int i = 0; i < num; i++) {
-            carList.get(i).race(num);
+        for (Car car : carList) {
+            car.race(num);
         }
     }
 
     public void printRacingGame() {
-        for (int i = 0; i < carList.size(); i++) {
-            System.out.println(carList.get(i).print());
+        for (Car car : carList) {
+            System.out.println(car.print());
         }
-    }
-
-    public void setCarNum(int carNum) {
-        for (int i = 0; i < carNum; i++) {
-            carList.add(new Car());
-        }
-        this.carNum = carNum;
-    }
-
-    public void setTryNum(int tryNum) {
-        this.tryNum = tryNum;
-    }
-
-    public int getCarNum() {
-        return carNum;
-    }
-
-    public int getTryNum() {
-        return tryNum;
     }
 
     public static void main(String[] args) {
