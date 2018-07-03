@@ -1,38 +1,26 @@
 package racingcar;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class RacingCar {
 
     private final int MAX_BOUND = 10;
-    private final int THRESHOLD = 4;
 
-    int cars[];
+
+    ArrayList<Car> cars = new ArrayList<Car>();
     int times;
     Scanner scanner = new Scanner(System.in);
 
-    public int[] getCars() {
-        return cars;
-    }
-
-    public void setCars(int[] cars) {
-        this.cars = cars;
-    }
-
-    public int getTimes() {
-        return times;
-    }
-
-    public void setTimes(int times) {
-        this.times = times;
-    }
-
     void getInput() {
         System.out.println("자동차 대수는 몇대 인가요?");
-        setCars(new int[getInputInteger()]);
+        int carCount = getInputInteger();
+        for(int i = 0; i < carCount; ++i) {
+            cars.add(new Car());
+        }
         System.out.println("시도할 회수는 몇 회 인가요?");
-        setTimes(getInputInteger());
+        this.times = getInputInteger();
         System.out.println();
     }
 
@@ -42,24 +30,17 @@ public class RacingCar {
     }
 
     public void move() {
-        for(int i = 0; i < getCars().length; ++i) {
-            for(int j = 0; j < getTimes(); ++j) {
-                if(isMovable(generateRandomNumber())) {
-                    moveCar(i);
-                }
+        for(int i = 0; i < cars.size(); ++i) {
+            attemptMoves(i);
+        }
+    }
+
+    public void attemptMoves(int index) {
+        for(int j = 0; j < this.times; ++j) {
+            if(cars.get(index).isMovable(generateRandomNumber())) {
+                cars.get(index).moveCar();
             }
         }
-    }
-
-    public boolean isMovable(int randomNumber) {
-        if(randomNumber >= THRESHOLD) {
-            return true;
-        }
-        return false;
-    }
-
-    public int moveCar(int index) {
-        return ++getCars()[index];
     }
 
     int generateRandomNumber() {
@@ -69,7 +50,7 @@ public class RacingCar {
 
     public String generateOutString(int index) {
         StringBuilder result = new StringBuilder();
-        for(int i = 0; i < getCars()[index]; i++) {
+        for(int i = 0; i < cars.get(index).position; i++) {
             result.append("-");
         }
         return result.toString();
@@ -77,7 +58,7 @@ public class RacingCar {
 
     public void printCarPositions() {
         System.out.println("실행 결과\n");
-        for(int i = 0; i < getCars().length; i++) {
+        for(int i = 0; i < cars.size(); i++) {
             System.out.println(generateOutString(i));
         }
     }

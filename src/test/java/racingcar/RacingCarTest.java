@@ -8,25 +8,29 @@ import static org.junit.Assert.*;
 public class RacingCarTest {
 
     private RacingCar racingCar;
-    private int[] initCarPostion;
+    private int[] initCarPosition;
+    private Car car;
 
     @Before
     public void setUp() {
         racingCar = new RacingCar();
-        initCarPostion = new int[] {0, 3, 5};
-        racingCar.setCars(initCarPostion);
+        initCarPosition = new int[] {0, 3, 5};
+        for(int i = 0; i < initCarPosition.length; ++i) {
+            racingCar.cars.add(new Car(initCarPosition[i]));
+        }
+        car = new Car();
     }
 
     @Test
     public void isMovableTest() {
-        assertEquals(true, racingCar.isMovable(4));
-        assertEquals(false, racingCar.isMovable(3));
+        assertEquals(true,car.isMovable(4));
+        assertEquals(false, car.isMovable(3));
     }
 
     @Test
     public void moveCarTest() {
-        assertEquals(racingCar.getCars()[0] + 1, racingCar.moveCar(0));
-        assertEquals(racingCar.getCars()[1] + 1, racingCar.moveCar(1));
+        assertEquals(car.position + 1, car.moveCar());
+        assertEquals(car.position + 1, car.moveCar());
 
     }
 
