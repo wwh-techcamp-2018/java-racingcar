@@ -33,4 +33,9 @@ public class StringParserTest {
         assertThat(stringParser.nextOperator()).isEqualTo("+");
         assertThat(stringParser.nextOperator()).isEqualTo("*");
     }
+
+    @Test
+    public void setInput() {
+        assertThat(stringParser.setInput("2 + 3 + 5")).isEqualTo(new String[]{"2","+", "3","+", "5"});
+    }
 }

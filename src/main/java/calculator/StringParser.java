@@ -7,24 +7,35 @@ import java.util.List;
 public class StringParser {
     private final List<String> operators = Arrays.asList("+", "-", "*", "/");
 
-    private List<Integer> numbers = new ArrayList<>();
-    private List<String> operatorList = new ArrayList<>();
-    private int numCount = 0;
-    private int opCount = 0;
+    private List<Integer> numbers;
+    private List<String> operatorList;
+    private int currentNumIndex;
+    private int currentOperatorIndex;
 
-    public void setInput(String input) {
+    public StringParser() {
+        this.numbers = new ArrayList<>();
+        this.operatorList = new ArrayList<>();
+        this.currentNumIndex = 0;
+        this.currentOperatorIndex = 0;
+    }
+
+    public String[] setInput(String input) {
         if (input.equals("") || input == null) {
             throw new IllegalArgumentException();
         }
-
         String[] strings = input.split(" ");
-        for(int i=0; i<strings.length; i++) {
+        parseTokens(strings);
+        return strings;
+    }
+
+    private void parseTokens(String[] strings) {
+        for (int i = 0; i < strings.length; i++) {
             parseToken(strings[i]);
         }
     }
 
     public void parseToken(String token) {
-        if(operators.contains(token)) {
+        if (operators.contains(token)) {
             operatorList.add(token);
             return;
         }
@@ -32,7 +43,7 @@ public class StringParser {
     }
 
     public int nextNum() {
-        return numbers.get(numCount++);
+        return numbers.get(currentNumIndex++);
     }
 
     public int getOperatorCount() {
@@ -40,7 +51,7 @@ public class StringParser {
     }
 
     public String nextOperator() {
-        return operatorList.get(opCount++);
+        return operatorList.get(currentOperatorIndex++);
     }
 
 }
