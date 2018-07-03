@@ -1,15 +1,16 @@
 package string.calculator;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StringCalculator {
 
     public static void main(String args[]) {
+
         Scanner scan = new Scanner(System.in);
         String text = scan.nextLine();
         System.out.print(result(text));
     }
-
 
     static int result(String text) {
         String[] rem = checkString(text).split(" ");
@@ -39,13 +40,10 @@ public class StringCalculator {
                 return plus(a, b);
             case "-":
                 return minus(a, b);
-
             case "/":
                 return div(a, b);
-
             case "*":
                 return multi(a, b);
-
         }
         throw new IllegalArgumentException();
     }
