@@ -1,5 +1,6 @@
-package car;
+package car.view;
 
+import car.view.ResultUI;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
