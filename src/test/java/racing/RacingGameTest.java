@@ -2,9 +2,7 @@ package racing;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class RacingGameTest {
@@ -29,7 +27,7 @@ public class RacingGameTest {
         List winner = rg.getWinner();
         assertEquals("pobi가 최종 우승했습니다.", rg.printWinner(winner));
     }
-
+  
     @Test
     public void init() {
         assertEquals(2, rg.cars.size());
