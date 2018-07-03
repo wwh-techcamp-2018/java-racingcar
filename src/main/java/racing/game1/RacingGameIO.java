@@ -31,7 +31,7 @@ public class RacingGameIO {
 
     public void getState(List<Car> cars) {
         for (Car car : cars) {
-                        print(car.appendCarNameAndState());
+            print(car.appendCarNameAndState());
         }
         print(RacingGame.getWinner(cars));
     }

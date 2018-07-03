@@ -33,19 +33,19 @@ public class Car {
         return str.toString();
     }
 
-    public boolean isWin(int highScore){
-        if(this.position > highScore)
+    public boolean isWin(int highScore) {
+        if (this.position > highScore)
             return true;
         return false;
     }
 
-    public boolean isDraw(int highScore){
-        if(this.position == highScore)
+    public boolean isDraw(int highScore) {
+        if (this.position == highScore)
             return true;
         return false;
     }
 
-    public String appendCarNameAndState(){
+    public String appendCarNameAndState() {
         StringBuilder str = new StringBuilder();
         str.append(this.name);
         str.append(" : ");
