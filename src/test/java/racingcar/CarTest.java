@@ -11,16 +11,21 @@ public class CarTest {
 
     @Before
     public void setUp() throws Exception {
-        car = new Car(0);
+        car = new Car(2, "minseok");
     }
 
     @Test
     public void move() {
-        assertThat(car.move(4)).isEqualTo(1);
+        assertThat(car.move(4)).isEqualTo(3);
     }
 
     @Test
     public void stop() {
-        assertThat(car.move(3)).isEqualTo(0);
+        assertThat(car.move(3)).isEqualTo(2);
+    }
+
+    @Test
+    public void getRoad() {
+        assertThat(car.getRoad()).isEqualTo("--");
     }
 }

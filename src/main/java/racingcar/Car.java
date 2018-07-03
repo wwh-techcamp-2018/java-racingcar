@@ -2,15 +2,9 @@ package racingcar;
 
 public class Car {
     private static final int LIMIT_NUM = 4;
+    private static final String LOAD = "-";
     private int position;
     private String name;
-
-    public Car() {
-    }
-
-    Car(int position) {
-        this.position = position;
-    }
 
     public Car(int position, String name) {
         this.position = position;
@@ -31,4 +25,15 @@ public class Car {
         return this.position;
     }
 
+    boolean isSame(int max) {
+        return this.position == max;
+    }
+
+    String getRoad() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < position; i++) {
+            sb.append(LOAD);
+        }
+        return sb.toString();
+    }
 }
