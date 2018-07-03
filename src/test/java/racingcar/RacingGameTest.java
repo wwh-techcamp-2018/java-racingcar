@@ -11,7 +11,7 @@ public class RacingGameTest {
 
     @Before
     public void setUp() throws Exception {
-        racingGame = new RacingGame();
+        racingGame = new RacingGame(3);
     }
 
     @Test

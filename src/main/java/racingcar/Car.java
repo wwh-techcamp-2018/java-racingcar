@@ -1,8 +1,8 @@
 package racingcar;
 
 public class Car {
-    private int position;
     private static final int LIMIT_NUM = 4;
+    private int position;
 
     public Car() {
     }
@@ -16,7 +16,7 @@ public class Car {
     }
 
     int move(int randomValue) {
-        if (randomValue > LIMIT_NUM)
+        if (randomValue >= LIMIT_NUM)
             this.position++;
         return this.position;
     }

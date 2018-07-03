@@ -1,12 +1,18 @@
 package racingcar;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class RacingGame {
-    static ArrayList<Car> cars = new ArrayList<>();
-    static final String LOAD   = "-";
+    static final String LOAD = "-";
+    private List<Car> cars = new ArrayList<>();
+    private int carCount;
+
+    public RacingGame(int carCount) {
+        this.carCount = carCount;
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -15,24 +21,25 @@ public class RacingGame {
         System.out.println("시도할 회수는 몇 회 인가요?");
         int tryingCount = scanner.nextInt();
 
-        createCars(carCount);
-        repeatRace(tryingCount);
-        printAllCar();
+        RacingGame racingGame = new RacingGame(carCount);
+        racingGame.createCars();
+        racingGame.repeatRace(tryingCount);
+        racingGame.printAllCar();
     }
 
-    private static void createCars(int carCount){
-        for (int i = 0; i < carCount; i++) {
-            cars.add(new Car(0));
+    private void createCars(){
+        for (int i = 0; i < this.carCount; i++) {
+            this.cars.add(new Car(0));
         }
     }
 
-    private static void repeatRace(int tryingCount) {
+    private void repeatRace(int tryingCount) {
         for (int i = 0; i < tryingCount; i++) {
             updateAllCar();
         }
     }
 
-    private static void updateAllCar() {
+    private void updateAllCar() {
         for (Car car : cars) {
             car.move(getRandomNo());
         }
@@ -42,9 +49,9 @@ public class RacingGame {
         return new Random().nextInt(10);
     }
 
-    private static void printAllCar() {
+    private void printAllCar() {
         System.out.println("\n실행 결과\n");
-        for (Car car : cars) {
+        for (Car car : this.cars) {
             println(getRoad(car.getPosition()));
         }
     }
