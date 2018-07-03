@@ -23,4 +23,12 @@ public class Car {
     public String getName() {
         return name;
     }
+
+    public boolean isMaxPosition(int maxPosition) {
+        return position == maxPosition;
+    }
+
+    public void printState(String carCharacter) {
+        System.out.printf("%s\t%s\n", name, StringUtil.repeat(position, carCharacter));
+    }
 }
