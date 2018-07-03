@@ -7,8 +7,8 @@ public class Calculator {
     public static String[] parse(String text) {
         if (text == null || text == " ") {
             throw new IllegalArgumentException();
-
         }
+
         return text.split(" ");
     }
 
@@ -27,15 +27,12 @@ public class Calculator {
         if (operator.equals("+")) {
             return result + temp;
         }
-
         if (operator.equals("-")) {
             return result - temp;
         }
-
         if (operator.equals("*")) {
             return result * temp;
         }
-
         if (operator.equals("/")) {
             return result / temp;
         }

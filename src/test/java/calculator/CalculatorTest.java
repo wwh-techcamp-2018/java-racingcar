@@ -9,11 +9,11 @@ public class CalculatorTest {
     @Test
     public void parse() {
         String[] arr = Calculator.parse("2 + 3 * 4");
-        assertEquals(arr[0],"2");
-        assertEquals(arr[1],"+");
-        assertEquals(arr[2],"3");
-        assertEquals(arr[3],"*");
-        assertEquals(arr[4],"4");
+        assertEquals(arr[0], "2");
+        assertEquals(arr[1], "+");
+        assertEquals(arr[2], "3");
+        assertEquals(arr[3], "*");
+        assertEquals(arr[4], "4");
     }
 
     @Test
@@ -40,24 +40,24 @@ public class CalculatorTest {
         assertEquals(1, Calculator.calculate(arr));
     }
 
-    @Test (expected = NumberFormatException.class)
+    @Test(expected = NumberFormatException.class)
     public void calculateNotNumber() {
         String[] arr = {"2", "+", "a"};
         Calculator.calculate(arr);
     }
 
-    @Test (expected = ArithmeticException.class)
+    @Test(expected = ArithmeticException.class)
     public void calculateNotOperator() {
         String[] arr = {"2", ")", "3"};
         Calculator.calculate(arr);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void inputStringSpace() {
         Calculator.parse(" ");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void inputStringNull() {
         Calculator.parse(null);
     }
