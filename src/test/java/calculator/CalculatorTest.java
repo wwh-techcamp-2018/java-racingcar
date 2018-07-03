@@ -25,7 +25,7 @@ public class CalculatorTest {
 
     @Test
     public void minus() {
-        assertEquals(-1, cal.minus(2, 3));//이렇게도 가능하다.
+            assertEquals(-1, cal.minus(2, 3));//이렇게도 가능하다.
     }
 
 }
