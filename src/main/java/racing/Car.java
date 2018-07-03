@@ -3,10 +3,11 @@ package racing;
 import java.util.Random;
 
 public class Car {
-    private int position = 0;
     private static final int GO_DEGREE = 4;
     private static final int MAX_RANDOM = 10;
     private static final int MIN_RANDOM = 0;
+
+    private int position = 0;
 
     public int getPosition() {
         return position;

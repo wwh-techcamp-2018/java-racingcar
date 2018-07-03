@@ -14,10 +14,14 @@ public class CarTest {
     }
 
     @Test
-    public void moveTest() {
+    public void goTest() {
         car.move(4);
         assertEquals(1, car.getPosition());
+    }
+
+    @Test
+    public void stopTest() {
         car.move(1);
-        assertEquals(1, car.getPosition());
+        assertEquals(0, car.getPosition());
     }
 }
