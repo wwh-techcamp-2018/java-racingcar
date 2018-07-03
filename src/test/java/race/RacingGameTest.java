@@ -12,22 +12,17 @@ public class RacingGameTest {
 
     @Before
     public void setUp() throws Exception {
-        newGame = new RacingGame(3, 5);
+        newGame = new RacingGame(new String[] { "pobi", "crong", "honux" }, 5);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void timeShouldPositiveNumber() {
-        new RacingGame(2, 0);
+        new RacingGame(new String[] { "pobi", "crong", "honux" }, 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void numOfCarsShouldPositiveNumber() {
-        new RacingGame(0, 2);
-    }
-
-    @Test
-    public void repeat() {
-        assertThat(RacingGame.repeat(1).length()).isOne();
+        new RacingGame(new String[]{ }, 2);
     }
 
     @Test

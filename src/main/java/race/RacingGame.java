@@ -1,24 +1,24 @@
 package race;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class RacingGame {
+    private static final int LIMIT = 4;
+
     private int time;
     private List<Car> cars;
-    private static final int LIMIT = 4;
-    private static final String CAR_TILE = "-";
+    private int maxPosition = 0;
 
-    public RacingGame(int numOfCars, int time) {
-        if (numOfCars <= 0 || time <= 0) {
+    public RacingGame(String[] carNames, int time) {
+        if (carNames.length <= 0 || time <= 0) {
             throw new IllegalArgumentException();
         }
 
-        cars = Stream.generate(Car::new)
-                .limit(numOfCars)
+        cars = Arrays.stream(carNames)
+                .map(Car::new)
                 .collect(Collectors.toList());
         this.time = time;
     }
@@ -32,6 +32,7 @@ public class RacingGame {
     private void run() {
         for (int i = 0; i < cars.size(); i++) {
             move(i);
+            this.maxPosition = Math.max(this.maxPosition, cars.get(i).getPosition());
         }
     }
 
@@ -47,19 +48,10 @@ public class RacingGame {
         return cars;
     }
 
-    public void print() {
-        for (Car car : cars) {
-            System.out.println(repeat(car.getPosition()));
-        }
-    }
-
-    static String repeat(int carPosition) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < carPosition; i++) {
-            sb.append(CAR_TILE);
-        }
-
-        return sb.toString();
+    public List<Car> chooseWinner() {
+        return cars.stream()
+                .filter((c) -> c.getPosition() == maxPosition)
+                .collect(Collectors.toList());
     }
 
     public static int getRandomNumber() {
@@ -67,19 +59,15 @@ public class RacingGame {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        ConsoleView consoleView = new ConsoleView();
+        String[] carNames = consoleView.inputCarNames();
+        int time = consoleView.inputTime();
 
-        System.out.println("자동차 대수는 몇 대 인가요?");
-        int numOfCars = scanner.nextInt();
-
-        System.out.println("시도할 횟수는 몇 회 인가요?");
-        int time = scanner.nextInt();
-
-        RacingGame racingGame = new RacingGame(numOfCars, time);
+        RacingGame racingGame = new RacingGame(carNames, time);
 
         racingGame.play();
 
-        System.out.println("실행 결과\n");
-        racingGame.print();
+        consoleView.showResult(racingGame.cars);
+        consoleView.showWinners(racingGame.chooseWinner());
     }
 }
