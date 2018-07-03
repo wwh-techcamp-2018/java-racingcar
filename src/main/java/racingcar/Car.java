@@ -3,9 +3,15 @@ package racingcar;
 public class Car {
     public static final int FORWARD_NUM = 4;
     private int position;
+    private String name;
 
-    public Car() {
-        this.position = 0;
+    public Car(int position, String name) {
+        this.position = position;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getPosition() {
