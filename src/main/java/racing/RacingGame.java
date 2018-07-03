@@ -24,7 +24,7 @@ public class RacingGame {
             car.race(num);
         }
     }
-
+  
     public String printRacingGame() {
         StringBuilder sb = new StringBuilder();
         for (Car car : cars) {
