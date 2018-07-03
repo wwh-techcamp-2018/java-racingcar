@@ -45,8 +45,8 @@ public class CalculatorTest {
         calc.calcData("");
     }
 
-    @Test
-    public void calcDivideByZero() {
+    @Test (expected = ArithmeticException.class)
+    public void calcDividedByZero() {
         calc.calcData("3 / 0");
     }
 }
