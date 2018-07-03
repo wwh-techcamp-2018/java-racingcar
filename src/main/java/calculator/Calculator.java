@@ -11,7 +11,7 @@ public class Calculator {
         return i - j;
     }
 
-    static int muliple(int i, int j) {
+    static int multiple(int i, int j) {
         return i * j;
     }
 
@@ -33,12 +33,12 @@ public class Calculator {
     }
 
     static int calculate(int preNum, String operator, int nextNum) {
-        if(operator.equals("+"))
+        if("+".equals(operator))
             return plus(preNum, nextNum);
-        if(operator.equals("-"))
+        if("-".equals(operator))
             return minus(preNum, nextNum);
-        if(operator.equals("*"))
-            return muliple(preNum, nextNum);
+        if("*".equals(operator))
+            return multiple(preNum, nextNum);
 
         return divide(preNum, nextNum);
     }
