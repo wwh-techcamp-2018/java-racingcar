@@ -1,14 +1,15 @@
 package racingcar;
 
 
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class RacingCarGame {
-    ArrayList<Car> cars = new ArrayList<>();
+    private List<Car> cars = new ArrayList<>();
 
-    public void initCars(int numCar) {
+    public RacingCarGame(int numCar) {
         for (int i = 0; i < numCar; i++) {
             cars.add(new Car());
         }
@@ -29,21 +30,19 @@ public class RacingCarGame {
 
     public void printCarState() {
         for (Car car : cars) {
-            System.out.println(car.repeat());
+            System.out.println(Car.repeat(car.getPosition()));
         }
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        RacingCarGame game = new RacingCarGame();
-
+        RacingCarGame game;
         System.out.println("자동차 대수는 몇 대 인가요?");
         int numCar = scanner.nextInt();
-        game.initCars(numCar);
-
         System.out.println("시도할 횟수는 몇 회 인가요?");
         int numTrial = scanner.nextInt();
 
+        game = new RacingCarGame(numCar);
         game.run(numTrial);
         game.printCarState();
     }

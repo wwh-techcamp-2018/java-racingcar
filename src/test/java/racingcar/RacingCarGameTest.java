@@ -11,12 +11,6 @@ public class RacingCarGameTest {
 
     @Before
     public void setUp() throws Exception {
-        game = new RacingCarGame();
-    }
-
-    @Test
-    public void initCars() {
-        game.initCars(5);
-        assertEquals(5,game.cars.size());
+        game = new RacingCarGame(5);
     }
 }
