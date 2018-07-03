@@ -5,27 +5,28 @@ import java.util.List;
 public class RaceResult {
 
     private List<Car> racedCar;
-    private int maxDistance = 0;
-
-    public int getMaxDistance() {
-        return maxDistance;
-    }
 
     public RaceResult(List<Car> racedCar) {
         this.racedCar = racedCar;
         checkMaxDistance();
     }
 
-    public void checkMaxDistance () {
+    public int checkMaxDistance () {
+        int curMaxDistance = 0;
         for(int i = 0; i < racedCar.size(); i++){
-            maxDistance = Math.max(racedCar.get(i).getPosition(), maxDistance);
+            curMaxDistance = racedCar.get(i).curMaxPosition(curMaxDistance);
         }
+        return curMaxDistance;
+    }
+
+    public int getCarPositionOfIndex(int index) {
+        return racedCar.get(index).getPosition();
     }
 
     public String generateOutString(int index) {
         StringBuilder result = new StringBuilder();
         result.append(racedCar.get(index).getName() + " : ");
-        for(int i = 0; i < racedCar.get(index).getPosition(); i++) {
+        for(int i = 0; i < getCarPositionOfIndex(index); i++) {
             result.append("-");
         }
         return result.toString();
@@ -39,7 +40,7 @@ public class RaceResult {
     }
 
     public void assertWinner(StringBuilder result, int index) {
-        if(maxDistance == racedCar.get(index).getPosition()) {
+        if(racedCar.get(index).isMaxPosition(checkMaxDistance())) {
             result.append(racedCar.get(index).getName() + ", ");
         }
     }

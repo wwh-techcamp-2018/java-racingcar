@@ -48,7 +48,7 @@ public class RacingCarTest {
     @Test
     public void checkMaxDistanceTest() {
         raceResult.checkMaxDistance();
-        assertEquals(5, raceResult.getMaxDistance());
+        assertEquals(5, raceResult.checkMaxDistance());
     }
 
 }

@@ -35,4 +35,12 @@ class Car {
         return name;
     }
 
+    public int curMaxPosition(int maxPosition) {
+        return Math.max(maxPosition, this.position);
+    }
+
+    public boolean isMaxPosition(int maxPosition) {
+        return maxPosition == this.position;
+    }
+
 }
