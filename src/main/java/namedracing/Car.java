@@ -3,25 +3,9 @@ package namedracing;
 class Car {
     private final int THRESHOLD = 4;
 
-    int position;
+    private int position;
 
-    String name;
-
-    Car() {
-        position = 0;
-        name = "";
-    }
-
-    Car(int position) {
-        this.position = position;
-        this.name = "";
-    }
-
-    Car(String name) {
-        position = 0;
-        this.name = name;
-    }
-
+    private String name;
 
     Car(String name, int position) {
         this.name = name;
@@ -29,8 +13,11 @@ class Car {
     }
 
 
-    int moveCar() {
-        return ++this.position;
+    int moveCar(int randomNumber) {
+        if(isMovable(randomNumber)) {
+            return ++this.position;
+        }
+        return this.position;
     }
 
     public boolean isMovable(int randomNumber) {
@@ -38,6 +25,14 @@ class Car {
             return true;
         }
         return false;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

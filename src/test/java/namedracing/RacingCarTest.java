@@ -11,6 +11,7 @@ public class RacingCarTest {
     Car pobi;
     Car crong;
     Car honux;
+    RaceResult raceResult;
 
     @Before
     public void setUp() {
@@ -21,17 +22,9 @@ public class RacingCarTest {
         racingCar.cars.add(pobi);
         racingCar.cars.add(crong);
         racingCar.cars.add(honux);
-
+        raceResult = new RaceResult(racingCar.cars);
     }
 
-    @Test
-    public void checkWinnerTest() {
-        for(int i = 0; i < racingCar.cars.size(); i++) {
-            racingCar.checkWinner(i);
-        }
-
-        assertEquals("honux", racingCar.winners.get(0).name);
-    }
 
     @Test
     public void isMovableTest() {
@@ -41,15 +34,21 @@ public class RacingCarTest {
 
     @Test
     public void moveCarTest() {
-        assertEquals(pobi.position + 1, pobi.moveCar());
-        assertEquals(pobi.position + 1, pobi.moveCar());
+        assertEquals(pobi.getPosition() + 1, pobi.moveCar(4));
+        assertEquals(pobi.getPosition() + 1, pobi.moveCar(4));
 
     }
 
     @Test
     public void generateOutStringTest() {
-        assertEquals("crong : -", racingCar.generateOutString(1));
-        assertEquals("pobi : ", racingCar.generateOutString(0));
+        assertEquals("crong : -", raceResult.generateOutString(1));
+        assertEquals("pobi : ", raceResult.generateOutString(0));
+    }
+
+    @Test
+    public void checkMaxDistanceTest() {
+        raceResult.checkMaxDistance();
+        assertEquals(5, raceResult.getMaxDistance());
     }
 
 }
