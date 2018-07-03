@@ -3,15 +3,12 @@ package racingcar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class RacingGame {
     static final int RANDOM_MAX_LIMIT = 10;
     private List<Car> cars = new ArrayList<>();
-    private String[] names;
 
     public RacingGame(String[] names) {
-        this.names = names;
         createCars(names);
     }
 
@@ -24,8 +21,7 @@ public class RacingGame {
         racingGame.repeatRace(tryingCount);
 
         ConsoleOutputView outputViewer = new ConsoleOutputView();
-        outputViewer.printAllCar(racingGame.getCars());
-        outputViewer.printWinners(racingGame.getWinners(racingGame.getMax()));
+        outputViewer.print(racingGame);
     }
 
     public List<Car> getCars() {
@@ -54,15 +50,15 @@ public class RacingGame {
         return new Random().nextInt(RANDOM_MAX_LIMIT);
     }
 
-    private int getMax() {
+    int getMax() {
         int maximum = 0;
-        for (int i = 0; i < cars.size(); i++) {
-            maximum = Math.max(cars.get(i).getPosition(), maximum);
+        for (Car car : cars) {
+            maximum = Math.max(car.getPosition(), maximum);
         }
         return maximum;
     }
 
-    private String getWinners(int max) {
+    String getWinners(int max) {
         StringBuilder matchedNames = new StringBuilder();
         for (int i = 0; i < cars.size(); i++) {
             matchedNames.append(getMatchedName(i, max));
