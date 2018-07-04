@@ -1,35 +1,40 @@
 package racingcar;
 
+import racingcar.model.Car;
+import racingcar.view.InputView;
+import racingcar.view.OutputView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class RacingGame {
-    static final String LOAD = "-";
+    static final int RANDOM_MAX_LIMIT = 10;
     private List<Car> cars = new ArrayList<>();
-    private int carCount;
 
-    public RacingGame(int carCount) {
-        this.carCount = carCount;
+    public RacingGame(String[] names) {
+        createCars(names);
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("자동차 대수는 몇 대 인가요?");
-        int carCount = scanner.nextInt();
-        System.out.println("시도할 회수는 몇 회 인가요?");
-        int tryingCount = scanner.nextInt();
-
-        RacingGame racingGame = new RacingGame(carCount);
-        racingGame.createCars();
-        racingGame.repeatRace(tryingCount);
-        racingGame.printAllCar();
+//        InputView inputViewer = new InputView();
+//        String[] names = inputViewer.getCarNames();
+//        int tryingCount = inputViewer.getTryCount();
+//
+//        RacingGame racingGame = new RacingGame(names);
+//        racingGame.repeatRace(tryingCount);
+//
+//        OutputView outputViewer = new OutputView();
+//        outputViewer.print(racingGame);
     }
 
-    private void createCars(){
-        for (int i = 0; i < this.carCount; i++) {
-            this.cars.add(new Car(0));
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    private void createCars(String[] names){
+        for (String name : names) {
+            this.cars.add(new Car(name, 0));
         }
     }
 
@@ -46,25 +51,29 @@ public class RacingGame {
     }
 
     private static int getRandomNo() {
-        return new Random().nextInt(10);
+        return new Random().nextInt(RANDOM_MAX_LIMIT);
     }
 
-    private void printAllCar() {
-        System.out.println("\n실행 결과\n");
-        for (Car car : this.cars) {
-            println(getRoad(car.getPosition()));
+    public int getMax() {
+        int maximum = 0;
+        for (Car car : cars) {
+            maximum = Math.max(car.getPosition(), maximum);
         }
+        return maximum;
     }
 
-    private static void println(String message) {
-        System.out.println(message);
-    }
-
-    static String getRoad(int position) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < position; i++) {
-            sb.append(LOAD);
+    public String getWinners(int max) {
+        StringBuilder matchedNames = new StringBuilder();
+        for (int i = 0; i < cars.size(); i++) {
+            matchedNames.append(getMatchedName(i, max));
         }
-        return sb.toString();
+        return String.join(", ", matchedNames.toString().split(" "));
+    }
+
+    String getMatchedName(int i, int max) {
+        if(cars.get(i).isSame(max)) {
+            return cars.get(i).getName() + " ";
+        }
+        return "";
     }
 }
