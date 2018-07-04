@@ -1,13 +1,11 @@
 package car;
 
-import car.domain.CarDTO;
 import car.model.Car;
 import car.view.InputUI;
 import car.view.ResultUI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CarClient {
     private CarRunner<Car> runner;

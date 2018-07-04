@@ -1,7 +1,7 @@
 package car.model;
 
-import car.domain.CarDTO;
 
+import car.domain.CarDTO;
 import java.util.Objects;
 
 public class NamedCar extends Car{
@@ -29,7 +29,6 @@ public class NamedCar extends Car{
         return name;
     }
     // constructor//name 추가 // getter
-
     public CarDTO createCarDTO(){
         return new CarDTO(name, super.getPosition());
     }
