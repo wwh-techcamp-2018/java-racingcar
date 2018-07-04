@@ -1,32 +1,33 @@
 package race;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class RacingGame {
-    private int time;
-    private List<Car> cars;
     private static final int LIMIT = 4;
-    private static final String CAR_TILE = "-";
+    private ValueGenerator valueGenerator;
+    private List<Car> cars;
 
-    public RacingGame(int numOfCars, int time) {
-        if (numOfCars <= 0 || time <= 0) {
+    public RacingGame(String[] carNames) {
+        this(carNames, new RandomValueGenerator());
+    }
+
+    public RacingGame(String[] carNames, ValueGenerator valueGenerator) {
+        if (carNames.length <= 0) {
             throw new IllegalArgumentException();
         }
 
-        cars = Stream.generate(Car::new)
-                .limit(numOfCars)
+        cars = Arrays.stream(carNames)
+                .map(Car::new)
                 .collect(Collectors.toList());
-        this.time = time;
+        this.valueGenerator = valueGenerator;
     }
 
-    public void play() {
+    public RacingResult play(int time) {
         for (int i = 0; i < time; i++) {
             run();
         }
+        return makeResult();
     }
 
     private void run() {
@@ -36,7 +37,7 @@ public class RacingGame {
     }
 
     public void move(int index) {
-        move(index, getRandomNumber());
+        move(index, valueGenerator.generate());
     }
 
     public List<Car> move(int index, int randomNumber) {
@@ -47,19 +48,33 @@ public class RacingGame {
         return cars;
     }
 
-    public void print() {
-        for (Car car : cars) {
-            System.out.println(repeat(car.getPosition()));
-        }
+    public List<Car> getCars() {
+        return cars;
     }
 
-    static String repeat(int carPosition) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < carPosition; i++) {
-            sb.append(CAR_TILE);
-        }
+    public RacingResult makeResult() {
+        return new RacingResult(makeResultMap(), chooseWinners(cars));
+    }
 
-        return sb.toString();
+    public Map<String, Integer> makeResultMap() {
+        return cars.stream().collect(Collectors.toMap(Car::getName, Car::getPosition));
+    }
+
+    public static List<String> chooseWinners(List<Car> cars) {
+        Car winner = chooseWinner(cars);
+
+        return cars.stream()
+                .filter((c) -> c.isOnPosition(winner))
+                .map(Car::getName)
+                .collect(Collectors.toList());
+    }
+
+    static Car chooseWinner(List<Car> cars) {
+        Car winner = cars.get(0);
+        for (Car car : cars) {
+            winner = winner.getWinner(car);
+        }
+        return winner;
     }
 
     public static int getRandomNumber() {
@@ -67,19 +82,14 @@ public class RacingGame {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        ConsoleView consoleView = new ConsoleView();
+        String[] carNames = consoleView.inputCarNames();
+        int time = consoleView.inputTime();
 
-        System.out.println("자동차 대수는 몇 대 인가요?");
-        int numOfCars = scanner.nextInt();
+        RacingGame racingGame = new RacingGame(carNames);
 
-        System.out.println("시도할 횟수는 몇 회 인가요?");
-        int time = scanner.nextInt();
+        RacingResult result = racingGame.play(time);
 
-        RacingGame racingGame = new RacingGame(numOfCars, time);
-
-        racingGame.play();
-
-        System.out.println("실행 결과\n");
-        racingGame.print();
+        consoleView.showResult(result);
     }
 }

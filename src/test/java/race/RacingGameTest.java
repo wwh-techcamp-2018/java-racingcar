@@ -3,31 +3,51 @@ package race;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class RacingGameTest {
+    private static int TIME = 5;
 
     private RacingGame newGame;
 
     @Before
-    public void setUp() throws Exception {
-        newGame = new RacingGame(3, 5);
+    public void setUp() {
+        newGame = new RacingGame(new String[]{"pobi", "crong", "honux"}, new FixedValueGenerator(5));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void timeShouldPositiveNumber() {
-        new RacingGame(2, 0);
+    @Test
+    public void play() {
+        RacingResult result = newGame.play(TIME);
+        assertThat(result.getResultMap()).containsKeys("pobi", "crong", "honux");
+        assertThat(result.getWinners())
+                .contains("pobi", "crong", "honux");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void numOfCarsShouldPositiveNumber() {
-        new RacingGame(0, 2);
+        new RacingGame(new String[]{});
     }
 
     @Test
-    public void repeat() {
-        assertThat(RacingGame.repeat(1).length()).isOne();
+    public void chooseCorrectWinners() {
+        assertThat(RacingGame.chooseWinners(Arrays.asList(
+                new Car("winner1", 3),
+                new Car("winner2", 3),
+                new Car("looser", 2))))
+                .contains("winner1", "winner2")
+                .doesNotContain("looser");
+    }
+
+    @Test
+    public void chooseCorrectWinnersWhenOnlyOneCar() {
+        List<Car> oneCarList = new ArrayList<>();
+        oneCarList.add(new Car("only_one"));
+        assertThat(RacingGame.chooseWinners(oneCarList)).isEqualTo(Arrays.asList("only_one"));
     }
 
     @Test
