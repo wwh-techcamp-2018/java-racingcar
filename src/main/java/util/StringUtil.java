@@ -8,4 +8,8 @@ public class StringUtil {
         }
         return sb.toString();
     }
+
+    public static String[] parseName(String names) {
+        return names.split(",");
+    }
 }

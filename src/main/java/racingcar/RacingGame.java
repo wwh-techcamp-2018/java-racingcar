@@ -3,44 +3,47 @@ package racingcar;
 import util.IntegerUtil;
 import util.StringUtil;
 
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static racingcar.RacingGameView.getNames;
+import static racingcar.RacingGameView.getTime;
 
 public class RacingGame {
-    private Car[] cars;
-    private int time;
+    private List<Car> cars;
 
-    public RacingGame(int carNum, int time) {
-        cars = new Car[carNum];
-        this.time = time;
+    public RacingGame(String[] names) {
+        cars = new ArrayList();
+        initCars(names);
+    }
+
+    private void initCars(String[] names) {
+        for (String name: names) {
+            cars.add(new Car(0, name));
+        }
+    }
+
+    public void printResult() {
+        RacingGameView.printCarResult(cars);
+        RacingGameView.printWinners(getWinnerText(getWinners(cars, getMaxDist(cars))));
     }
 
     public void moveAll() {
         int randomNum = 0;
-        for (int i = 0; i < cars.length; i++) {
+        for (int i = 0; i < cars.size(); i++) {
             randomNum = IntegerUtil.getRandomNo();
-            cars[i].move(randomNum);
+            cars.get(i).move(randomNum);
         }
     }
+    public static int getMaxDist(List<Car> cars){
+        return Collections.max(cars, (car1, car2) -> car1.getPosition() - car2.getPosition()).getPosition();
 
-    public void printCarResult(int index){
-        System.out.println(StringUtil.repeatDash(cars[index].getPosition()));
+    }
+    public static List<Car> getWinners(List<Car> cars, int max) {
+        return cars.stream().filter((car) -> car.isEqualPosition(max)).collect(Collectors.toList());
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("자동차 대수는 몇 대 인가요?");
-        int carNum = scanner.nextInt();
-        System.out.println("시도할 회수는 몇 회 인가요?");
-        int time = scanner.nextInt();
-
-        RacingGame racingGame = new RacingGame(carNum, time);
-        for (int i = 0; i < time; i++) {
-            racingGame.moveAll();
-        }
-
-        System.out.println("실행 결과");
-        for (int i = 0; i < carNum ; i++) {
-            racingGame.printCarResult(i);
-        }
+    public static String getWinnerText(List<Car> winners) {
+        return winners.stream().map((car) -> car.getName()).collect(Collectors.joining(","));
     }
 }
