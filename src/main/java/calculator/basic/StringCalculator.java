@@ -1,4 +1,4 @@
-package calculator;
+package calculator.basic;
 
 
 import java.util.HashMap;

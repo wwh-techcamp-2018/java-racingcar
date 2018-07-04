@@ -1,4 +1,4 @@
-package calculator;
+package calculator.basic;
 
 public class Divider extends Operator {
     @Override
