@@ -2,47 +2,65 @@ package racing;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class RacingGame {
 
-    public List<Car> carList;
-    private int tryNum;
+    public List<Car> cars;
 
-    public RacingGame(int carNum, int tryNum) {
-        carList = new ArrayList<>();
-        this.tryNum = tryNum;
+    public RacingGame(String[] carName) {
+        cars = new ArrayList<>();
 
-        for (int i = 0; i < carNum; i++) {
-            carList.add(new Car());
+        for (int i = 0; i < carName.length; i++) {
+            cars.add(new Car(carName[i]));
         }
     }
 
-    public void startRace() {
-        startRace(carList.size());
+    public List<Car> getCars() {
+        return cars;
     }
 
     public void startRace(int num) {
-        for (Car car : carList) {
+        for (Car car : cars) {
             car.race(num);
         }
     }
 
-    public void printRacingGame() {
-        for (Car car : carList) {
-            System.out.println(car.print());
+    public String printRacingGame() {
+        StringBuilder sb = new StringBuilder();
+        for (Car car : cars) {
+            sb.append(car.getName());
+            sb.append(" : ");
+            sb.append(car.print());
+            sb.append("\n");
         }
+        return sb.toString();
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("차 개수 입력");
-        int carNum = scanner.nextInt();
-        System.out.println("시도 횟수 입력");
-        int tryNum = scanner.nextInt();
+    private int getMaxPosition() {
+        int maxPosition = 0;
+        for (Car car : cars) {
+            maxPosition = car.comparePosition(maxPosition);
+        }
+        return maxPosition;
+    }
 
-        RacingGame raceGame = new RacingGame(carNum, tryNum);
-        raceGame.startRace();
-        raceGame.printRacingGame();
+    public List getWinner() {
+        int max = getMaxPosition();
+
+        return cars.stream()
+                .filter(car -> car.isMaxPosition(max))
+                .collect(Collectors.toList());
+    }
+
+    public String printWinner(List<Car> winner) {
+        if (winner.isEmpty())
+            throw new IllegalArgumentException();
+
+        String message = winner.stream()
+                .map(car -> car.getName())
+                .collect(Collectors.joining(","));
+
+        return message + "가 최종 우승했습니다.";
     }
 }
