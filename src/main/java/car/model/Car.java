@@ -1,5 +1,7 @@
 package car.model;
 
+import car.domain.CarDTO;
+
 import java.util.Objects;
 import java.util.Random;
 
@@ -34,6 +36,10 @@ public class Car {
 
     public int getPosition() {
         return this.position;
+    }
+
+    public CarDTO createCarDTO(){
+        return new CarDTO(position);
     }
 
 }
