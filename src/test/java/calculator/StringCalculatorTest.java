@@ -1,10 +1,9 @@
 package calculator;
 
-import calculator.StringCalculator;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class StringCalculatorTest {
 
@@ -36,7 +35,7 @@ public class StringCalculatorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void calculatorException(){
+    public void calculatorException() {
         String case3 = "1 + 2 +";
         assertEquals(1, sc.stringCalculator(case3));
     }
