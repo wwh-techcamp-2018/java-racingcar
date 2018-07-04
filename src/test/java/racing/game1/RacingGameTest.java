@@ -15,25 +15,23 @@ public class RacingGameTest {
     @Before
     public void setUp() throws Exception {
         cars = new ArrayList<Car>();
-        cars.add(new Car("pobi"));
-        cars.add(new Car("crong"));
-        cars.add(new Car("honux"));
-        racingGame = new RacingGame();
+        cars.add(new Car("pobi",3));
+        racingGame = new RacingGame(new String[]{""});
     }
 
     @Test
     public void getWinnerWithSingleWinner() {
-
-        for (int i = 0; i < 3; i++) {
-            cars.get(i).move(i+2);
-        }
-        assertEquals("honux가 최종 우승했습니다.",
+        cars.add(new Car("crong"));
+        cars.add(new Car("honux"));
+        assertEquals("pobi",
                 RacingGame.getWinner(cars));
     }
 
     @Test
     public void getWinnerWithCowinner() {
-        assertEquals("pobi,crong,honux가 최종 우승했습니다.",
+        cars.add(new Car("crong",3));
+        cars.add(new Car("honux",3));
+        assertEquals("pobi,crong,honux",
                 RacingGame.getWinner(cars));
     }
 }

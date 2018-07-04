@@ -1,27 +1,24 @@
 package racing.game1;
 
+import java.util.List;
+
 public class Winner {
-    private int highScore = -1;
-    private StringBuilder winners = new StringBuilder();
-    private static final String WINNER_MESSAGE = "가 최종 우승했습니다.";
 
-
-    public StringBuilder getWinners() {
-        return winners.append(WINNER_MESSAGE);
+    public static int getMaxPosition(List<Car> cars){
+        int maxPosition = 0;
+        for (Car car : cars) {
+            maxPosition = car.getMaxPosition(maxPosition);
+        }
+        return maxPosition;
     }
 
-    public void changeWinnersStateWithWin(Car car) {
-        if (car.isWin(highScore)) {
-            this.highScore = car.getPosition();
-            this.winners = new StringBuilder();
-            this.winners.append(car.getName());
+    public static String getWinners(List<Car> cars, int maxPosition){
+        StringBuilder winners = new StringBuilder();
+        for (Car car : cars) {
+            if(car.isWinner(maxPosition)){
+                car.appendWinner(winners);
+            }
         }
-    }
-
-    public void changeWinnersStateWithDraw(Car car) {
-        if (car.isDraw(highScore)) {
-            winners.append(",");
-            winners.append(car.getName());
-        }
+        return winners.toString();
     }
 }

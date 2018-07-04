@@ -2,35 +2,33 @@ package racing.game1;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RacingGame {
+    private List<Car> cars = new ArrayList<Car>();
 
-    public void total(int time, List<Car> carPosition) {
+    public RacingGame(String[] names) {
+        for (int i = 0; i < names.length; i++) {
+            cars.add(new Car(names[i]));
+        }
+    }
+
+    public void total(int time) {
         for (int i = 0; i < time; i++) {
-            updatePosition(carPosition);
+            updatePosition(cars);
         }
     }
 
     private void updatePosition(List<Car> carPosition) {
         for (int i = 0; i < carPosition.size(); i++) {
-            carPosition.get(i).move(RacingGame.random());
+            carPosition.get(i).move();
         }
     }
 
     public static String getWinner(List<Car> cars) {
-        Winner winner = new Winner();
-        for (Car car : cars) {
-            winner.changeWinnersStateWithDraw(car);
-            winner.changeWinnersStateWithWin(car);
-        }
-
-        return winner.getWinners().toString();
+        return Winner.getWinners(cars, Winner.getMaxPosition(cars));
     }
 
-
-    static int random() {
-        Random rand = new Random();
-        return rand.nextInt(10);
+    public void printResult() {
+        ResultView.printResult(this.cars,RacingGame.getWinner(this.cars));
     }
 }
