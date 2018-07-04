@@ -1,5 +1,6 @@
 package calculator.string.adder;
 
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,10 +17,8 @@ public class CustomSpliter implements Spliter {
     @Override
     public List<Integer> extractNums(String s) {
         Matcher m = Pattern.compile("//(.)N(.*)").matcher(s);
-        if (m.find()) {
-            String customDelimiter = m.group(1);
-            s = m.group(2);
-        }
+        s = m.find() ? m.group(2) : s;
+        
         if (s == null || s.isEmpty()){
             return Arrays.asList(0);
         }

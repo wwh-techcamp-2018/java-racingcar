@@ -11,6 +11,5 @@ public class SpliterFactoryTest {
     public void createSpliter() {
         assertThat(SpliterFactory.createSpliter("//;N1;2;3")).isInstanceOf(CustomSpliter.class);
         assertThat(SpliterFactory.createSpliter("1;2;3")).isInstanceOf(DefaultSpliter.class);
-
     }
 }
