@@ -10,23 +10,22 @@ public class CarTest {
     private Car car;
 
     @Before
-    public void setUp() throws Exception {
-        car = new Car();
+    public void setUp(){
+        car = new Car("sample");
     }
 
     @Test
     public void moveFailed() {
-        int prePos = car.getPosition();
-        car.moveWithCondition(3);
-        int postPos = car.getPosition();
-        assertEquals(postPos, prePos);
+        assertEquals(0, car.moveWithCondition(3));
     }
 
     @Test
     public void moveSucceed() {
-        int prePos = car.getPosition();
-        car.moveWithCondition(Car.FORWARD_NUM);
-        int postPos = car.getPosition();
-        assertEquals(prePos + 1, postPos);
+        assertEquals(1, car.moveWithCondition(Car.FORWARD_NUM));
+    }
+
+    @Test
+    public void isReached() {
+        assertEquals(true, car.isReached(0));
     }
 }
