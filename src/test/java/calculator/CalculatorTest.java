@@ -1,46 +1,58 @@
 package calculator;
 
+import calculator.parser.CharacterParser;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
 
-    private Calculator cal;
+    private Calculator characterCalculator;
+    private Calculator spaceCalculator;
 
     @Before
-    public void setUp() throws Exception {
-        cal = new Calculator();
+    public void setUp() {
+        characterCalculator = new Calculator(new CharacterParser());
+        spaceCalculator = new Calculator(new SpaceParser());
+    }
+
+    @Test
+    public void calculateCharacterParser() {
+        new Calculator(new CharacterParser());
+        assertThat(characterCalculator.calculate("2,3,4")).isEqualTo(9);
     }
 
     @Test
     public void operatePlus() {
-        assertEquals(5, cal.operate("+", 2, 3));
+        assertEquals(5, characterCalculator.operate("+", 2, 3));
+        assertEquals(5, spaceCalculator.operate("+", 2, 3));
     }
 
     @Test
     public void operateMinus() {
-        assertEquals(-1, cal.operate("-", 2, 3));
+        assertThat(spaceCalculator.operate("-", 2, 3)).isEqualTo(-1);
     }
 
     @Test
     public void operateMultiply() {
-        assertEquals(6, cal.operate("*", 2, 3));
+        assertThat(spaceCalculator.operate("*", 2, 3)).isEqualTo(6);
     }
 
     @Test
     public void operateDivide() {
-        assertEquals(2, cal.operate("/", 4, 2));
+        assertThat(spaceCalculator.operate("/", 4, 2)).isEqualTo(2);
     }
 
-    @Test (expected = ArithmeticException.class)
+    @Test(expected = ArithmeticException.class)
     public void operateDivideByZero() {
-        cal.operate("/", 4, 0);
+        spaceCalculator.operate("/", 4, 0);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void operateInvalidOperator() {
-        cal.operate("!", 2, 3);
+        spaceCalculator.operate("!", 2, 3);
     }
+
 }
