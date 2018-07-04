@@ -8,9 +8,22 @@ public class Car {
     private static final int MIN_RANDOM = 0;
 
     private int position = 0;
+    private String name;
+
+    public Car(String name) {
+        this.name = name;
+    }
 
     public int getPosition() {
         return position;
+    }
+
+    public boolean isWinner(int maxPosition) {
+        return position == maxPosition;
+    }
+
+    public String getName() {
+        return name;
     }
 
     private static int getRandomNum() {
