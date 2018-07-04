@@ -1,8 +1,11 @@
-package racingcar;
+package racingcar.view;
+
+import racingcar.RacingGame;
+import racingcar.model.Car;
 
 import java.util.List;
 
-public class ConsoleOutputView {
+public class OutputView {
     private void printAllCar(List<Car> cars) {
         System.out.println("\n실행 결과\n");
         for (Car car : cars) {
@@ -14,7 +17,7 @@ public class ConsoleOutputView {
         System.out.println("\n" + winners + "가 최종 우승했습니다!");
     }
 
-    void print(RacingGame racingGame) {
+    public void print(RacingGame racingGame) {
         printAllCar(racingGame.getCars());
         printWinners(racingGame.getWinners(racingGame.getMax()));
     }
