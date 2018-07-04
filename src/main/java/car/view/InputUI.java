@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class InputUI {
     static final String DELIMITER = ",";
-    Scanner scanner;
+    private Scanner scanner;
 
     public InputUI() {
         scanner = new Scanner(System.in);
@@ -23,7 +23,7 @@ public class InputUI {
         return parseCarNames(scanner.nextLine());
     }
 
-    List<String> parseCarNames(String input) {
+    public List<String> parseCarNames(String input) {
         return Arrays.asList(input.split(DELIMITER));
     }
 

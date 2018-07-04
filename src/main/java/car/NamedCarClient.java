@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NamedCarClient {
 
-    NamedCarRunner<NamedCar> runner;
+    private NamedCarRunner<NamedCar> runner;
 
     public NamedCarClient(List<String> carList) {
         List<NamedCar> cars = new ArrayList<NamedCar>(carList.size());

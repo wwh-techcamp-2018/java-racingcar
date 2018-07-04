@@ -1,4 +1,4 @@
-package calculator;
+package calculator.basic;
 
 public class Calculator {
     public int plus(int a, int b) {

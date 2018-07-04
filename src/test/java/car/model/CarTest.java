@@ -37,5 +37,4 @@ public class CarTest {
         assertEquals(1, namedCar.move(4));
     }
 
-
 }

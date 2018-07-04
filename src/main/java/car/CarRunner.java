@@ -10,9 +10,9 @@ public class CarRunner<T extends Car> {
 
     private static final int RANDOM_BOUND_NUM = 10;
 
-    List<T> cars;
+    protected List<T> cars;
 
-    CarRunner(List<T> cars){
+    public CarRunner(List<T> cars){
         this.cars = cars;
     }
 

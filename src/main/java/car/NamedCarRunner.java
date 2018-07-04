@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class NamedCarRunner<T extends NamedCar> extends CarRunner {
-    NamedCarRunner(List<T> cars) {
+    public NamedCarRunner(List<T> cars) {
         super(cars);
     }
 

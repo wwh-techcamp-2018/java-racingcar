@@ -64,20 +64,12 @@ public class ResultUI {
 
     static List<CarDTO> getWinners(List<CarDTO> carDTOs){
         int max = getMaxPosition(carDTOs);
-
-        List<CarDTO> winners = carDTOs.stream().filter(x -> max == x.getPosition()).collect(Collectors.toList());
-        return winners;
+        return carDTOs.stream().filter(car -> car.isMaxPosition(max)).collect(Collectors.toList());
     }
 
 
     static int getMaxPosition(List<CarDTO> carDTOs){
-        int max = 0;
-
-        for(CarDTO dto : carDTOs){
-            max = Math.max(max, dto.getPosition());
-        }
-
-        return max;
+        return carDTOs.stream().mapToInt(CarDTO::getPosition).max().orElse(0);
     }
 
 }

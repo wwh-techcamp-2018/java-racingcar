@@ -16,4 +16,8 @@ public class CarDTO {
     public int getPosition() {
         return position;
     }
+
+    public boolean isMaxPosition(int max){
+        return max == position;
+    }
 }
