@@ -4,52 +4,50 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class RacingGameTest {
+    private static int TIME = 5;
 
     private RacingGame newGame;
-    private List<Car> cars;
-    private List<Car> winners;
 
     @Before
     public void setUp() {
-        newGame = new RacingGame(new String[] { "pobi", "crong", "honux" });
+        newGame = new RacingGame(new String[]{"pobi", "crong", "honux"}, new FixedValueGenerator(5));
+    }
 
-        cars = new ArrayList<>();
-        winners = new ArrayList<>();
-
-        Car looser = new Car("looser");
-
-        for (int i = 0; i < 4; i++) {
-            Car winner = new Car("winner");
-            winner.moveFront();
-
-            cars.add(winner);
-            winners.add(winner);
-        }
-
-        cars.add(looser);
+    @Test
+    public void play() {
+        RacingResult result = newGame.play(TIME);
+        assertThat(result.getResultMap()).containsKeys("pobi", "crong", "honux");
+        assertThat(result.getWinners())
+                .contains("pobi", "crong", "honux");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void numOfCarsShouldPositiveNumber() {
-        new RacingGame(new String[]{ });
+        new RacingGame(new String[]{});
     }
 
     @Test
     public void chooseCorrectWinners() {
-        assertThat(newGame.chooseWinners(cars)).isEqualTo(winners);
+        assertThat(RacingGame.chooseWinners(Arrays.asList(
+                new Car("winner1", 3),
+                new Car("winner2", 3),
+                new Car("looser", 2))))
+                .contains("winner1", "winner2")
+                .doesNotContain("looser");
     }
 
     @Test
     public void chooseCorrectWinnersWhenOnlyOneCar() {
         List<Car> oneCarList = new ArrayList<>();
         oneCarList.add(new Car("only_one"));
-        assertThat(newGame.chooseWinners(oneCarList)).isEqualTo(oneCarList);
+        assertThat(RacingGame.chooseWinners(oneCarList)).isEqualTo(Arrays.asList("only_one"));
     }
 
     @Test

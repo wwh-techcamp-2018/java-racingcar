@@ -41,19 +41,20 @@ public class ConsoleView {
         return sb.toString();
     }
 
-    public void showResult(RacingGame racingGame) {
+    public void showResult(RacingResult racingResult) {
         System.out.println("실행 결과\n");
-        for (Car car : racingGame.getCars()) {
-            System.out.println(car.getName() + " : " + generateCarTiles(car.getPosition()));
-        }
 
-        System.out.println(gererateWinners(RacingGame.chooseWinners(racingGame.getCars())));
+        racingResult.getResultMap().forEach((name, position) -> {
+            System.out.println(name + " : " + generateCarTiles(position));
+        });
+
+        System.out.println(generateWinners(racingResult.getWinners()));
     }
 
-    String gererateWinners(List<Car> winners) {
+    String generateWinners(List<String> winners) {
         StringBuilder sb = new StringBuilder();
-        for (Car winner : winners) {
-            sb.append(winner.getName()).append(", ");
+        for (String name : winners) {
+            sb.append(name).append(", ");
         }
         sb.delete(sb.length() - 2, sb.length());
         sb.append("가 최종 우승했습니다.");
