@@ -1,14 +1,21 @@
 package calculator;
 
+import calculator.parser.StringParser;
+
 import java.util.List;
 
 public class Calculator {
 
-    public int calculate(String input) throws IllegalArgumentException {
-        StringParser parser = new StringParser(input);
+    private StringParser parser;
 
-        List<String> operators = parser.getOperators();
-        List<Integer> operands = parser.getOperands();
+    public Calculator(StringParser parser) {
+        this.parser = parser;
+    }
+
+    public int calculate(String input) throws IllegalArgumentException {
+        List<String> tokens = parser.parse(input);
+        List<String> operators = parser.extractOperators(tokens);
+        List<Integer> operands = parser.extractOperands(tokens);
 
         int result = operands.get(0);
         for (int i = 0; i < operators.size(); ++i) {
