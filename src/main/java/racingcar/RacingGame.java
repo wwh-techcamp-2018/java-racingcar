@@ -1,69 +1,50 @@
 package racingcar;
 
-import java.util.ArrayList;
+import racingcar.random.RandomGenerator;
+
 import java.util.List;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 public class RacingGame {
     private static final int RANDOM_MAX_LIMIT = 10;
-    private List<RacingCar> cars = new ArrayList<>();
+    private List<RacingCar> cars;
+    private RandomGenerator randomGenerator;
 
-    public RacingGame(String text) {
-        String[] carNames = parseTextToCarNames(text);
-        for (int i = 0; i < carNames.length; i++) {
-            cars.add(new RacingCar(carNames[i]));
-        }
-    }
-
-    public static void main(String[] args) {
-        String names = ConsoleInputView.getCarNames();
-        int tryCount = ConsoleInputView.getTryCount();
-
-        RacingGame racingGame = new RacingGame(names);
-        racingGame.moveCars(tryCount);
-
-        ConsoleOutputView.printResult(racingGame.getCars(), racingGame.checkWinners());
+    public RacingGame(List<RacingCar> cars, RandomGenerator randomGenerator) {
+        this.cars = cars;
+        this.randomGenerator = randomGenerator;
     }
 
     public void moveCars(int tryCount) {
         for (int i = 0; i < tryCount; i++) {
-            moveCar();
+            moveCars();
         }
     }
 
-    public void moveCar() {
-        for (int i = 0; i < cars.size(); i++) {
-            cars.get(i).move(makeRandomNumber(RANDOM_MAX_LIMIT));
+    public void moveCars() {
+        for (RacingCar car : cars) {
+            car.move(randomGenerator.generate(RANDOM_MAX_LIMIT));
         }
     }
 
-    public static int makeRandomNumber(int limit) {
-        Random random = new Random();
-        return random.nextInt(limit);
+    public static List<RacingCar> makeWinners(List<RacingCar> cars) {
+        int maxPosition = getMaxPosition(cars);
+
+        return cars.stream()
+                .filter(car -> car.matchBy(maxPosition))
+                .collect(Collectors.toList());
     }
 
-    public List<String> checkWinners() {
-        List<String> winners = new ArrayList<>();
-        int maxPosition = cars.get(0).getPosition();
-        winners.add(cars.get(0).getName());
 
-        for (int i = 1; i < cars.size(); i++) {
-            if (cars.get(i).getPosition() > maxPosition) {
-                winners.clear();
-                winners.add(cars.get(i).getName());
-            }
-            if (cars.get(i).getPosition() == maxPosition) {
-                winners.add(cars.get(i).getName());
-            }
-        }
-        return winners;
+    private static int getMaxPosition(List<RacingCar> cars) {
+        return cars.stream()
+                .mapToInt(RacingCar::getPosition)
+                .max()
+                .orElse(0);
     }
 
     private String[] parseTextToCarNames(String text) {
         return text.split(",");
     }
 
-    public List<RacingCar> getCars() {
-        return cars;
-    }
 }
