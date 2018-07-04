@@ -1,7 +1,8 @@
-package racing;
+package racing.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import racing.model.Car;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

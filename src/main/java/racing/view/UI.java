@@ -1,6 +1,9 @@
-package racing;
+package racing.view;
 
 import racing.common.StringUtils;
+import racing.model.RacingGameManager;
+import racing.model.RandomValueGenerator;
+import racing.model.ValueGenerator;
 
 import java.util.Scanner;
 
@@ -13,8 +16,9 @@ public class UI {
         StringUtils.println("시도할 회수는 몇회인가요?");
         int count = scanner.nextInt();
 
-        RacingGameManager racingGameManager = new RacingGameManager();
-        racingGameManager.initGame(StringUtils.tokenizer(inputName));
-        racingGameManager.runGame(count);
+        ValueGenerator valueGenerator = new RandomValueGenerator();
+
+        RacingGameManager racingGameManager = new RacingGameManager(StringUtils.tokenizer(inputName), valueGenerator);
+        StringUtils.println(racingGameManager.runGame(count));
     }
 }
