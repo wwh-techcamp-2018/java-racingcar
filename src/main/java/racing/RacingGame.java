@@ -2,6 +2,7 @@ package racing;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RacingGame {
 
@@ -24,7 +25,7 @@ public class RacingGame {
             car.race(num);
         }
     }
-  
+
     public String printRacingGame() {
         StringBuilder sb = new StringBuilder();
         for (Car car : cars) {
@@ -45,26 +46,21 @@ public class RacingGame {
     }
 
     public List getWinner() {
-        List winner = new ArrayList<Car>();
         int max = getMaxPosition();
-        for (Car car : cars) {
-            if (car.isMaxPosition(max)) winner.add(car);
-        }
-        return winner;
+
+        return cars.stream()
+                .filter(car -> car.isMaxPosition(max))
+                .collect(Collectors.toList());
     }
 
     public String printWinner(List<Car> winner) {
         if (winner.isEmpty())
             throw new IllegalArgumentException();
 
-        StringBuilder sb = new StringBuilder();
+        String message = winner.stream()
+                .map(car -> car.getName())
+                .collect(Collectors.joining(","));
 
-        sb.append(winner.get(0).getName());
-        for (int i = 1; i < winner.size(); i++) {
-            sb.append(", ");
-            sb.append(winner.get(i).getName());
-        }
-        sb.append("가 최종 우승했습니다.");
-        return sb.toString();
+        return message + "가 최종 우승했습니다.";
     }
 }

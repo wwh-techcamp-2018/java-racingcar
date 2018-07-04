@@ -18,10 +18,6 @@ public class Car {
         this.name = name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
@@ -50,9 +46,7 @@ public class Car {
     }
 
     public boolean isMaxPosition(int max) {
-        if (max == this.position)
-            return true;
-        return false;
+        return max == this.position;
     }
 
     public int comparePosition(int max) {
