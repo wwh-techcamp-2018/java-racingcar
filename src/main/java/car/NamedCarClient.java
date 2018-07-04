@@ -34,6 +34,7 @@ public class NamedCarClient {
 
         ResultUI.printByDTO(namedCarClient.convertToCarDTOs());
     }
+
     public void run(int numOfGames) {
        runner.run(numOfGames);
     }
