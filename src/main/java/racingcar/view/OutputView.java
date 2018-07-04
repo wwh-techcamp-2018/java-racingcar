@@ -1,8 +1,10 @@
 package racingcar.view;
 
-import racingcar.RacingGame;
+import racingcar.controller.RacingGame;
 import racingcar.model.Car;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OutputView {
@@ -13,12 +15,16 @@ public class OutputView {
         }
     }
 
-    private void printWinners(String winners) {
-        System.out.println("\n" + winners + "가 최종 우승했습니다!");
+    private void printWinners(List<Car> winners) {
+        String[] winnerString = new String[winners.size()];
+        for (int i = 0; i < winners.size(); i++) {
+            winnerString[i] = winners.get(i).getName();
+        }
+        System.out.println("\n" + String.join(",", winnerString) + "가 최종 우승했습니다!");
     }
 
     public void print(RacingGame racingGame) {
         printAllCar(racingGame.getCars());
-        printWinners(racingGame.getWinners(racingGame.getMax()));
+        printWinners(racingGame.getWinners());
     }
 }

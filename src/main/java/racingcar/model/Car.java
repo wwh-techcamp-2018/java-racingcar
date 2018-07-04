@@ -1,5 +1,7 @@
 package racingcar.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Car {
@@ -17,13 +19,12 @@ public class Car {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public int getPosition() {
         return position;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int move(int randomValue) {
@@ -47,6 +48,8 @@ public class Car {
         }
         return sb.toString();
     }
+
+//    public List<String> pushYourName(List<Car>)
 
     @Override
     public boolean equals(Object o) {
