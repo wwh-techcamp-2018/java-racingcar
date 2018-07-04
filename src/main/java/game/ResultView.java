@@ -1,13 +1,14 @@
 package game;
 
-import java.util.List;
-
 public class ResultView {
-    void printResult(List<RacingCar> cars) {
-        for (RacingCar car : cars) {
-            printDash(car.getPosition());
+    void printResult(RacingGame game) {
+        for (RacingCar car : game.getCars()) {
+            System.out.print(car.getName() + " : ");
+            printDash(car.isWinner());
             System.out.println();
         }
+
+        System.out.println(String.join(", ", game.getWinners()) + "가 최종 우승했습니다.");
     }
 
     private void printDash(Integer position) {
