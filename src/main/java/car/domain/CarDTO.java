@@ -8,7 +8,9 @@ public class CarDTO {
         this.name = name;
         this.position = position;
     }
-
+    public CarDTO(int position){
+        this(null, position);
+    }
     public String getName() {
         return name;
     }

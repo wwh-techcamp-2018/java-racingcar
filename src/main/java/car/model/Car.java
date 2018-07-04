@@ -1,7 +1,7 @@
 package car.model;
 
+import car.domain.CarDTO;
 import java.util.Objects;
-import java.util.Random;
 
 public class Car {
     static final int DETERMINANT = 4;
@@ -36,4 +36,7 @@ public class Car {
         return this.position;
     }
 
+    public CarDTO createCarDTO(){
+        return new CarDTO(position);
+    }
 }
