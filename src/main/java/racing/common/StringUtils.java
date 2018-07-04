@@ -8,4 +8,17 @@ public class StringUtils {
         }
         return st.toString();
     }
+
+    public static String[] tokenizer(String inputName) {
+        String[] names = inputName.split(",");
+        return names;
+    }
+
+    public static void print(String message) {
+        System.out.print(message);
+    }
+
+    public static void println(String message) {
+        System.out.println(message);
+    }
 }
