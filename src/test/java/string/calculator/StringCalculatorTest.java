@@ -11,6 +11,7 @@ public class StringCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
+
         cal = new StringCalculator();
     }
 
