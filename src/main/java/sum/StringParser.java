@@ -19,12 +19,14 @@ public class StringParser {
             return new int[]{0};
         }
 
-        String delimiter = extractDelimeter();
+        String delimiter = extractDelimiter();
 
-        return stringArrayToIntArray(splitString(delimiter));
+        int[] intArray = convertStringArrayToIntArray(splitString(delimiter));
+
+        return intArray;
     }
 
-    public String extractDelimeter() {
+    public String extractDelimiter() {
         Matcher m = Pattern.compile(EXTRACT_CHARACTER_PATTERN).matcher(text);
         if (m.find()) {
             String customDelimiter = m.group(1);
@@ -39,21 +41,19 @@ public class StringParser {
         return text.split(delimiter);
     }
 
-    public static int[] stringArrayToIntArray(String[] stringArray) {
-        int[] intArray=  Arrays.stream(stringArray)
-                .mapToInt(Integer::parseInt)
+    public static int[] convertStringArrayToIntArray(String[] stringArray) {
+        return Arrays.stream(stringArray)
+                .mapToInt(StringParser::toPositiveInteger)
                 .toArray();
-
-        for (int i : intArray) {
-            isPositiveInteger(i);
-        }
-
-        return intArray;
     }
 
-    public static void isPositiveInteger(int number) {
-        if (number <= 0) {
+    public static int toPositiveInteger(String numString) {
+        int result = Integer.parseInt(numString);
+
+        if (result < 0) {
             throw new RuntimeException();
         }
+
+        return result;
     }
 }

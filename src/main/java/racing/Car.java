@@ -28,7 +28,7 @@ public class Car {
         return position == maxPosition;
     }
 
-    public void printState(String carCharacter) {
-        System.out.printf("%s\t%s\n", name, StringUtil.repeat(position, carCharacter));
+    public String getState(String carCharacter) {
+        return String.format("%s\t%s\n", name, StringUtil.repeat(position, carCharacter));
     }
 }

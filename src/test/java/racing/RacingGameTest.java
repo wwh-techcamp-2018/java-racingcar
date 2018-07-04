@@ -35,4 +35,6 @@ public class RacingGameTest {
         assertArrayEquals(new String[]{"crong", "honux"}, ResultView.judgeWinners(racingGame.moveCars(new int[]{2, 5, 5})));
     }
 
+
+
 }

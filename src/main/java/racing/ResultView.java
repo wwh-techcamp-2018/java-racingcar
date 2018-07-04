@@ -9,7 +9,7 @@ public class ResultView {
     static void showResult(List<Car> cars) {
         System.out.println("실행 결과\n");
         for (Car car : cars) {
-            car.printState(CAR_CHARACTER);
+            System.out.print(car.getState(CAR_CHARACTER));
         }
 
         String[] winners = judgeWinners(cars);
