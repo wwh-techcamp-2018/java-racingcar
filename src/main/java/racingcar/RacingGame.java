@@ -1,40 +1,49 @@
 package racingcar;
 
+import utility.RandomGenerator;
 import utility.StringUtility;
 
 import java.util.*;
 
 public class RacingGame {
 
-    private List<Car> cars;
-    private List<String> winnerNames;
-    private int maxPosition = 0;
+    private static final int DEFAULT_BOUND = 10;
 
-    public RacingGame() {
-        cars = new ArrayList<>();
-        winnerNames = new ArrayList<>();
+    private RacingCars racingCars;
+
+    public RacingGame(String input) {
+        this(new RacingCars(initCar(input)));
     }
 
-    public void setCarNames(String input) {
+    public RacingGame(RacingCars racingCars) {
+        this.racingCars = racingCars;
+    }
+
+    private static List<Car> initCar(String input) {
+        isBlank(input);
+        return createCars(StringUtility.splitWithComma(input));
+    }
+
+    private static void isBlank(String input) {
         if (null == input) {
-            throw new IllegalArgumentException("입력이 꼭 필요합니다.");
+            throw new NullPointerException();
         }
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("빈 문자열을 입력할 수 없습니다.");
+            throw new IllegalArgumentException();
         }
+    }
 
-        String[] names = StringUtility.splitWithComma(input);
+    private static List<Car> createCars(String[] names) {
+        List<Car> cars = new ArrayList<>();
         for (int i = 0; i < names.length; i++) {
             cars.add(new Car(names[i]));
         }
+        return cars;
     }
 
     public void run(int times) {
-        if (cars.isEmpty()) {
-            throw new RuntimeException("게임을 시작하기 위해서는 자동차의 이름을 먼저 설정해야 합니다.");
-        }
         if (times < 1) {
-            throw new IllegalArgumentException("게임 횟수는 1보다 작을 수 없습니다.");
+            throw new IllegalArgumentException();
         }
 
         for (int i = 0; i < times; i++) {
@@ -43,36 +52,32 @@ public class RacingGame {
     }
 
     private void moveCars() {
+        List<Car> cars = racingCars.getCars();
         for (Car car : cars) {
-            int position = car.move();
-            maxPosition = Math.max(maxPosition, position);
+            int position = car.moveWithCondition(RandomGenerator.generate(DEFAULT_BOUND));
+            updateMaxPosition(position);
         }
     }
 
-    public String getRacingCar() {
-        StringBuffer sb = new StringBuffer();
+    private void updateMaxPosition(int position) {
+        racingCars.setMaxPosition(Math.max(racingCars.getMaxPosition(), position));
+    }
+
+    public List<Car> getWinners() {
+        List<Car> winners = new ArrayList<Car>();
+
+        List<Car> cars = racingCars.getCars();
+        int maxPosition = racingCars.getMaxPosition();
         for (Car car : cars) {
-            sb.append(car.toString());
+            if (car.isReached(maxPosition))
+                winners.add(car);
         }
-        return sb.toString();
+
+        return winners;
     }
 
-    public String getWinners() {
-        pickWinners();
-        StringBuffer sb = new StringBuffer();
-        sb.append(StringUtility.joinWithComma(winnerNames));
-        sb.append("가 최종우승했습니다.");
-        return sb.toString();
+    public RacingCars getRacingCars() {
+        return racingCars;
     }
 
-    private void pickWinners() {
-        for (Car car : cars) {
-            addWinnerName(car);
-        }
-    }
-
-    private void addWinnerName(Car car) {
-        if (car.isReached(maxPosition))
-            winnerNames.add(car.getName());
-    }
 }
