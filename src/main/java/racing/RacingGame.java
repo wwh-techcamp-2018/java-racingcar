@@ -1,42 +1,38 @@
 package racing;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RacingGame {
     private int time;
-    private List<Car> cars = new ArrayList<>();
+    private List<Car> cars;
     private RandomValueGenerator valueGenerator = new RandomValueGenerator();
 
-    public RacingGame(int carNumber, int time) {
-        for (int i = 0; i < carNumber; i++) {
-            cars.add(new Car());
-        }
+    public RacingGame(String carNames, int time) {
+        if (time <= 0 || carNames == null || "".equals(carNames)) throw new IllegalArgumentException();
+
+        cars = parseCarName(carNames);
         this.time = time;
     }
 
-    public int[] move() {
+    private List<Car> parseCarName(String carName) {
+        return Arrays.stream(carName.split(",")).map(Car::new).collect(Collectors.toList());
+    }
+
+    public List<Car> play() {
         for (int i = 0; i < time; i++) {
             moveCars(generateRandomValues(cars.size()));
         }
-
-        return getCarPositions();
+        return cars;
     }
 
 
-    void moveCars(int[] randomValues) {
+    List<Car> moveCars(int[] randomValues) {
         for (int i = 0; i < cars.size(); i++) {
             cars.get(i).move(randomValues[i]);
         }
-    }
-
-    public int[] getCarPositions() {
-        int[] result = new int[cars.size()];
-        for (int i = 0; i < cars.size(); i++) {
-            result[i] = cars.get(i).getPosition();
-        }
-
-        return result;
+        return cars;
     }
 
     private int[] generateRandomValues(int size) {
@@ -51,10 +47,14 @@ public class RacingGame {
         this.valueGenerator = valueGenerator;
     }
 
+    public void showResult() {
+        ResultView.showResult(cars);
+    }
+
     public static void main(String[] arr) {
-        RacingGame racingGame = new RacingGame(InputView.getCarNumber(), InputView.getTime());
-        racingGame.move();
-        ResultView.showResult(racingGame.getCarPositions());
+        RacingGame racingGame = new RacingGame(InputView.getCarNames(), InputView.getTime());
+        racingGame.play();
+        racingGame.showResult();
     }
 }
 
