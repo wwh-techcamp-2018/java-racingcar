@@ -41,7 +41,7 @@ public class WinnersTest {
         carList.get(2).movePosition(6);
 
         winners.findWinnerPosition(carList);
-        String testString = "crog, honux가 최종 우승했습니다.";
+        String testString = "crong, honux가 최종 우승했습니다.";
         winners.findWinnersName(carList);
 
         assertEquals(testString, winners.winnersToString());

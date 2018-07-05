@@ -1,5 +1,7 @@
 package game;
 
+import game.view.ResultView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,13 +42,12 @@ public class Winner {
             dupleWinnersToString();
         }
 
-        resultString.append("가 최종 우승했습니다.");
         return resultString.toString();
     }
 
     public void dupleWinnersToString() {
         for (int i = 1; i < winMember.size(); i++) {
-            resultString.append(", " + winMember.get(i));
+            resultString.append(ResultView.COMMA + winMember.get(i));
         }
     }
 
