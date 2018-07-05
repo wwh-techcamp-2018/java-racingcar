@@ -1,9 +1,9 @@
-package racingcar;
+package racingcar.domain;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CarTest {
 
@@ -11,23 +11,18 @@ public class CarTest {
 
     @Before
     public void setUp() throws Exception {
-        car = new Car();
+        car = new Car("포비");
     }
 
     @Test
     public void carMoveFail() {
         car.move(3);
-        assertEquals(0, car.getPosition());
+        assertThat(car.getPosition()).isEqualTo(0);
     }
 
     @Test
     public void carMoveSuccess() {
         car.move(4);
-        assertEquals(1, car.getPosition());
-    }
-
-    @Test
-    public void repeat() {
-        assertEquals("--", car.repeat(2));
+        assertThat(car.getPosition()).isEqualTo(1);
     }
 }
