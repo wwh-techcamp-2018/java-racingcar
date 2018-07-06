@@ -1,7 +1,8 @@
-package racingcar;
+package racingcar.domain;
 
 import org.junit.Before;
 import org.junit.Test;
+import racingcar.domain.Car;
 
 import static org.junit.Assert.*;
 
@@ -11,21 +12,20 @@ public class CarTest {
 
     @Before
     public void setUp(){
-        car = new Car("a,b,c");
+        car = new Car("TestCar", 2);
     }
 
     @Test
     public void moveFailed() {
-        assertEquals(0, car.moveWithCondition(3));
+        assertEquals(2, car.moveWithCondition(3));
     }
 
     @Test
     public void moveSucceed() {
-        assertEquals(1, car.moveWithCondition(Car.FORWARD_NUM));
+        assertEquals(3, car.moveWithCondition(Car.FORWARD_NUM));
     }
 
     @Test
-    public void isReached() {
-        assertEquals(true, car.isReached(0));
-    }
+    public void isReached() { assertEquals(true, car.isReached(2)); }
+
 }

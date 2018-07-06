@@ -1,20 +1,18 @@
 package racingcar;
 
+import racingcar.domain.RacingGame;
+import racingcar.dto.RacingCars;
 import racingcar.view.InputView;
 import racingcar.view.ResultView;
 
 public class Main {
     public static void main(String[] args) {
         InputView inputView = new InputView();
-        String carNames = inputView.getCarNames();
-        int times = inputView.getMoveTimes();
+        RacingGame game = new RacingGame(inputView.getCarNames());
+        game.run(inputView.getMoveTimes());
 
-        RacingGame game = new RacingGame(carNames);
-        game.run(times);
-
-        RacingCars racingCars = game.getRacingCars();
-        ResultView resultView = new ResultView(racingCars);
+        ResultView resultView = new ResultView(game.getRacingCars());
         resultView.printCarMoves();
-        resultView.printWinners(game.getWinners());
+        resultView.printWinners();
     }
 }

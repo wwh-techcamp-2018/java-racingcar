@@ -1,7 +1,7 @@
 package racingcar.view;
 
-import racingcar.Car;
-import racingcar.RacingCars;
+import racingcar.domain.Car;
+import racingcar.dto.RacingCars;
 
 import java.util.List;
 
@@ -17,9 +17,10 @@ public class ResultView {
         System.out.println(racingCars);
     }
 
-    public void printWinners(List<Car> winnerCars) {
+    public void printWinners() {
+        List<Car> winnerCars = racingCars.getWinnerCars();
         System.out.print(getWinnerNames(winnerCars));
-        System.out.print("가 최종 우승했습니다.");
+        System.out.println("가 최종 우승했습니다.");
     }
 
     private String getWinnerNames(List<Car> winnerCars) {
@@ -30,4 +31,5 @@ public class ResultView {
         }
         return sb.substring(0, sb.length() - 2);
     }
+
 }

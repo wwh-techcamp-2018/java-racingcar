@@ -27,4 +27,5 @@ public class StringUtilityTest {
         String actual = StringUtility.joinWithComma(Arrays.asList("a", "b"));
         assertEquals("a, b", actual);
     }
+
 }

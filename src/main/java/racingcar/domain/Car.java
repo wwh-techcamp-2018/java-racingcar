@@ -1,16 +1,16 @@
-package racingcar;
+package racingcar.domain;
 
+import utility.PositiveNumber;
 import utility.StringUtility;
 
 import java.util.Objects;
-import java.util.Random;
 
 public class Car {
 
     public final static int FORWARD_NUM = 4;
 
     private String name;
-    private int position;
+    private PositiveNumber position;
 
     public Car(String name) {
         this(name, 0);
@@ -18,17 +18,17 @@ public class Car {
 
     public Car(String name, int position) {
         this.name = name;
-        this.position = position;
+        this.position = PositiveNumber.of(position);
     }
 
     public int moveWithCondition(int num) {
         if (num >= FORWARD_NUM)
-            ++position;
-        return position;
+            position = position.increment();
+        return position.toInt();
     }
 
     public boolean isReached(int maxPosition) {
-        return maxPosition == position;
+        return PositiveNumber.of(maxPosition).equals(position);
     }
 
     public String getName() {
@@ -37,7 +37,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return String.format("%s : %s\n", name, StringUtility.repeatDash(position));
+        return String.format("%s : %s", name, StringUtility.repeatDash(position.toInt()));
     }
 
     @Override
@@ -45,12 +45,11 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return position == car.position &&
-                Objects.equals(name, car.name);
+        return Objects.equals(name, car.name) &&
+                Objects.equals(position, car.position);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name, position);
-    }
+    public int hashCode() { return Objects.hash(name, position); }
+
 }
