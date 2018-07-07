@@ -19,8 +19,7 @@ public class InputView {
 
     public int getMoveTimes() {
         System.out.println("시도할 회수는 몇회인가요?");
-        return new PositiveNumber(scanner.nextLine()).toInt();
+        return PositiveNumber.of(scanner.nextLine()).toInt();
     }
-
 
 }

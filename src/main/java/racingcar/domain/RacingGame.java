@@ -1,5 +1,7 @@
-package racingcar;
+package racingcar.domain;
 
+import racingcar.dto.RacingCars;
+import utility.PositiveNumber;
 import utility.RandomGenerator;
 import utility.StringUtility;
 
@@ -12,14 +14,10 @@ public class RacingGame {
     private RacingCars racingCars;
 
     public RacingGame(String input) {
-        this(new RacingCars(initCar(input)));
+        this.racingCars = new RacingCars(initCars(input));
     }
 
-    public RacingGame(RacingCars racingCars) {
-        this.racingCars = racingCars;
-    }
-
-    private static List<Car> initCar(String input) {
+    private static List<Car> initCars(String input) {
         isBlank(input);
         return createCars(StringUtility.splitWithComma(input));
     }
@@ -42,11 +40,8 @@ public class RacingGame {
     }
 
     public void run(int times) {
-        if (times < 1) {
-            throw new IllegalArgumentException();
-        }
-
-        for (int i = 0; i < times; i++) {
+        int positiveTimes = PositiveNumber.of(times).toInt();
+        for (int i = 0; i < positiveTimes; i++) {
             moveCars();
         }
     }
@@ -61,19 +56,6 @@ public class RacingGame {
 
     private void updateMaxPosition(int position) {
         racingCars.setMaxPosition(Math.max(racingCars.getMaxPosition(), position));
-    }
-
-    public List<Car> getWinners() {
-        List<Car> winners = new ArrayList<Car>();
-
-        List<Car> cars = racingCars.getCars();
-        int maxPosition = racingCars.getMaxPosition();
-        for (Car car : cars) {
-            if (car.isReached(maxPosition))
-                winners.add(car);
-        }
-
-        return winners;
     }
 
     public RacingCars getRacingCars() {
