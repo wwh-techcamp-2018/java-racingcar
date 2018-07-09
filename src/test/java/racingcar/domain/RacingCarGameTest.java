@@ -31,14 +31,21 @@ public class RacingCarGameTest {
                 .contains(new Car("선영"));
     }
 
-    // TODO: 2018. 7. 5. 아래 두 테스트 모듈을 작성해야합니다.
     @Test
     public void staticRun() {
-
+        RacingCarGame racingCarGame = new RacingCarGame(gameInput, new StaticGenerator(3));
+        racingCarGame.run(gameInput.getNumTrial());
+        List<Car> winners = racingCarGame.getWinners();
+        assertThat(winners).contains(new Car("광일", 0))
+                .contains(new Car("선영", 0));
     }
 
     @Test
     public void getWinners() {
-
+        RacingCarGame racingCarGame = new RacingCarGame(gameInput, new StaticGenerator(4));
+        racingCarGame.run(gameInput.getNumTrial());
+        List<Car> winners = racingCarGame.getWinners();
+        assertThat(winners).contains(new Car("광일", 5))
+                .contains(new Car("선영", 5));
     }
 }
