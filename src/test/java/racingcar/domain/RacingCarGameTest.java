@@ -39,9 +39,10 @@ public class RacingCarGameTest {
         assertThat(winners).contains(new Car("광일", 0))
                 .contains(new Car("선영", 0));
     }
-
+    
     @Test
     public void getWinners() {
+
         RacingCarGame racingCarGame = new RacingCarGame(gameInput, new StaticGenerator(4));
         racingCarGame.run(gameInput.getNumTrial());
         List<Car> winners = racingCarGame.getWinners();
